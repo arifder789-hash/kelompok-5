@@ -7,7 +7,7 @@
 session_start();
 include "koneksi.php";
 
-// ---- PROTEKSI HALAMAN ----
+// ---- PROTEKSI HALAMAN ----hfjgfjgfgjv
 // Cek apakah user sudah login
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
