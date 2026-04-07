@@ -1,63 +1,47 @@
 <?php
-// =============================================
-// FILE: register.php
-// Fungsi: Halaman pendaftaran akun baru
-// =============================================
-
 session_start();
 include "koneksi.php";
 
-$pesan       = "";
-$jenis_pesan = ""; // "sukses" atau "error"
+$pesan = "";
 
-// ---- PROSES REGISTER ----
 if (isset($_POST['btn_register'])) {
 
-    $username = trim($_POST['username']);
+    $username = mysqli_real_escape_string($koneksi, trim($_POST['username']));
     $password = trim($_POST['password']);
     $konfirm  = trim($_POST['konfirmasi']);
-    $role     = $_POST['role'];  // 'admin' atau 'mahasiswa'
+    $role     = $_POST['role'];
 
-    // --- Validasi ---
+    // VALIDASI
     if (empty($username) || empty($password) || empty($konfirm)) {
-        $pesan       = "Semua field wajib diisi!";
-        $jenis_pesan = "error";
+        $pesan = "Semua field wajib diisi!";
 
     } elseif (strlen($username) < 4) {
-        $pesan       = "Username minimal 4 karakter!";
-        $jenis_pesan = "error";
+        $pesan = "Username minimal 4 karakter!";
 
     } elseif (strlen($password) < 6) {
-        $pesan       = "Password minimal 6 karakter!";
-        $jenis_pesan = "error";
+        $pesan = "Password minimal 6 karakter!";
 
     } elseif ($password !== $konfirm) {
-        $pesan       = "Password dan konfirmasi password tidak cocok!";
-        $jenis_pesan = "error";
+        $pesan = "Konfirmasi password tidak cocok!";
 
     } else {
-        // Cek apakah username sudah dipakai
-        $cek   = mysqli_query($koneksi, "SELECT * FROM tb_login WHERE username = '$username'");
-        $exist = mysqli_num_rows($cek);
+        // cek username
+        $cek = mysqli_query($koneksi, "SELECT * FROM tb_login WHERE username='$username'");
 
-        if ($exist > 0) {
-            $pesan       = "Username '$username' sudah digunakan. Pilih username lain!";
-            $jenis_pesan = "error";
+        if (mysqli_num_rows($cek) > 0) {
+            $pesan = "Username sudah digunakan!";
         } else {
-            // Simpan ke database
-            // Password di-hash dengan MD5 (sama dengan saat login)
-            $password_hash = MD5($password);
+            $hash = md5($password);
 
-            $query  = "INSERT INTO tb_login (username, password, role) 
-                       VALUES ('$username', '$password_hash', '$role')";
-            $simpan = mysqli_query($koneksi, $query);
+            $simpan = mysqli_query($koneksi,
+                "INSERT INTO tb_login (username,password,role)
+                 VALUES ('$username','$hash','$role')");
 
             if ($simpan) {
-                $pesan       = "Akun berhasil dibuat! Silakan login.";
-                $jenis_pesan = "sukses";
+                header("Location: login.php");
+                exit();
             } else {
-                $pesan       = "Gagal menyimpan data: " . mysqli_error($koneksi);
-                $jenis_pesan = "error";
+                $pesan = "Gagal menyimpan data!";
             }
         }
     }
@@ -66,158 +50,148 @@ if (isset($_POST['btn_register'])) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | Sistem Login</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .card {
-            background: white;
-            padding: 35px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            width: 100%;
-            max-width: 400px;
-        }
+<style>
+:root {
+    --primary: #4f46e5;
+    --bg: linear-gradient(135deg, #667eea, #764ba2);
+}
 
-        .card h2 {
-            text-align: center;
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .card p.subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
+.container {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+}
 
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #34495e;
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-        input[type="text"],
-        input[type="password"],
-        select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
+.input-group {
+    margin-bottom: 18px;
+}
 
-        input:focus, select:focus {
-            border-color: #27ae60;
-            outline: none;
-        }
+.input-wrapper {
+    position: relative;
+}
 
-        button {
-            width: 100%;
-            padding: 11px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.input-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
 
-        button:hover { background-color: #229954; }
+input, select {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
 
-        .pesan-error {
-            background-color: #fdecea;
-            color: #c0392b;
-            border: 1px solid #e74c3c;
-            padding: 10px 12px;
-            border-radius: 5px;
-            font-size: 13px;
-            margin-bottom: 18px;
-        }
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-        .pesan-sukses {
-            background-color: #eafaf1;
-            color: #1e8449;
-            border: 1px solid #27ae60;
-            padding: 10px 12px;
-            border-radius: 5px;
-            font-size: 13px;
-            margin-bottom: 18px;
-        }
+button:hover {
+    background: #4338ca;
+}
 
-        .link-login {
-            text-align: center;
-            margin-top: 18px;
-            font-size: 13px;
-        }
+.error-box {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
 
-        .link-login a { color: #27ae60; text-decoration: none; }
-        .link-login a:hover { text-decoration: underline; }
-
-        /* Info hint di bawah input */
-        .hint {
-            font-size: 11px;
-            color: #95a5a6;
-            margin-top: -12px;
-            margin-bottom: 14px;
-        }
-    </style>
+.link {
+    text-align: center;
+    margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="card">
-    <h2>📝 Register</h2>
-    <p class="subtitle">Buat akun baru</p>
+<div class="container">
 
-    <!-- Tampilkan pesan -->
-    <?php if ($pesan != "") : ?>
-        <div class="pesan-<?= $jenis_pesan ?>">
-            <?= ($jenis_pesan == 'sukses') ? '✅' : '⚠️' ?> <?= $pesan ?>
-        </div>
-    <?php endif; ?>
+<h2>Daftar Akun</h2>
 
-    <!-- Form Register -->
-    <form method="POST" action="">
+<?php if ($pesan != ""): ?>
+<div class="error-box">
+    <i class="fas fa-exclamation-circle"></i> <?= $pesan ?>
+</div>
+<?php endif; ?>
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" 
-               placeholder="Masukkan username"
-               value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
-        <p class="hint">Minimal 4 karakter</p>
+<form method="POST">
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan password">
-        <p class="hint">Minimal 6 karakter</p>
+<div class="input-group">
+<div class="input-wrapper">
+<i class="fas fa-user"></i>
+<input type="text" name="username" placeholder="Username">
+</div>
+</div>
 
-        <label for="konfirmasi">Konfirmasi Password</label>
-        <input type="password" id="konfirmasi" name="konfirmasi" placeholder="Ulangi password">
+<div class="input-group">
+<div class="input-wrapper">
+<i class="fas fa-lock"></i>
+<input type="password" name="password" placeholder="Password">
+</div>
+</div>
 
-        <label for="role">Role / Hak Akses</label>
-        <select id="role" name="role">
-            <option value="mahasiswa">Mahasiswa</option>
-            <option value="admin">Admin</option>
-        </select>
+<div class="input-group">
+<div class="input-wrapper">
+<i class="fas fa-lock"></i>
+<input type="password" name="konfirmasi" placeholder="Konfirmasi Password">
+</div>
+</div>
 
-        <button type="submit" name="btn_register">Daftar Sekarang</button>
-    </form>
+<div class="input-group">
+<div class="input-wrapper">
+<i class="fas fa-user-tag"></i>
+<select name="role">
+    <option value="mahasiswa">Mahasiswa</option>
+    <option value="admin">Admin</option>
+</select>
+</div>
+</div>
 
-    <div class="link-login">
-        Sudah punya akun? <a href="login.php">Login di sini</a>
-    </div>
+<button type="submit" name="btn_register">
+    Daftar Sekarang
+</button>
+
+</form>
+
+<div class="link">
+    Sudah punya akun? <a href="login.php">Login</a>
+</div>
+
 </div>
 
 </body>
