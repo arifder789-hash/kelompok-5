@@ -36,23 +36,25 @@ if ($_SESSION['role'] != 'mahasiswa') {
 
         /* ---- NAVBAR ---- */
         .navbar {
-            background-color: #27ae60;
+            background: linear-gradient(100deg, #024aff #5c98ff);
+            height: 130px;
             color: white;
             padding: 14px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-radius: 0px 0px 50px 50px;
         }
 
-        .navbar .judul { font-size: 18px; font-weight: bold; }
+        .navbar .judul { font-size: 30px; font-weight: bold; }
 
-        .navbar .info-user { font-size: 13px; }
+        .navbar .info-user { font-size: 13px; margin-right: 20px; }
 
         .navbar a.btn-logout {
             background-color: #e74c3c;
             color: white;
-            padding: 7px 15px;
-            border-radius: 4px;
+            padding: 10px 15px;
+            border-radius: 0 0 10px;
             text-decoration: none;
             font-size: 13px;
             margin-left: 12px;
@@ -69,7 +71,7 @@ if ($_SESSION['role'] != 'mahasiswa') {
 
         /* ---- KARTU SELAMAT DATANG ---- */
         .kartu-welcome {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            background: linear-gradient(135deg, #024aff #5c98ff);
             color: white;
             padding: 30px 25px;
             border-radius: 8px;
@@ -78,8 +80,8 @@ if ($_SESSION['role'] != 'mahasiswa') {
         }
 
         .kartu-welcome .icon { font-size: 48px; margin-bottom: 12px; }
-        .kartu-welcome h2   { margin-bottom: 8px; font-size: 22px; }
-        .kartu-welcome p    { font-size: 14px; opacity: 0.9; }
+        .kartu-welcome h2   { margin-bottom: 8px; font-size: 30px; }
+        .kartu-welcome p    { font-size: 20px; opacity: 0.9; }
 
         /* ---- KARTU INFO ---- */
         .kartu-info {
@@ -109,7 +111,7 @@ if ($_SESSION['role'] != 'mahasiswa') {
         }
 
         .kartu-info td:first-child {
-            color: #7f8c8d;
+            color: #0b7dff;
             width: 40%;
             font-weight: bold;
         }
@@ -134,12 +136,12 @@ if ($_SESSION['role'] != 'mahasiswa') {
             padding: 18px 22px;
         }
 
-        .kartu-akses h3 { color: #d68910; margin-bottom: 12px; }
+        .kartu-akses h3 { color: #0177ff; margin-bottom: 12px; }
 
         .kartu-akses ul {
             padding-left: 20px;
-            color: #7d6608;
-            font-size: 14px;
+            color: #000000;
+            font-size: 16px;
             line-height: 1.9;
         }
     </style>
