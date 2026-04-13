@@ -45,9 +45,9 @@ if (isset($_POST['btn_login'])) {
     
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #002ea1;
+            --primary-hover: #1500ff;
+            --bg-gradient: linear-gradient(135deg, #010d45 0%, #1b00c9 100%);
             --text-main: #1f2937;
             --text-muted: #6b7280;
         }
@@ -154,7 +154,7 @@ if (isset($_POST['btn_login'])) {
         button:hover {
             background-color: var(--primary-hover);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 4px 12px rgb(0, 42, 255);
         }
 
         /* Error Message */
