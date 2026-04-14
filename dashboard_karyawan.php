@@ -1,213 +1,279 @@
 <?php
 // =============================================
 // FILE: dashboard_karyawan.php
-// Fungsi: Halaman khusus untuk role KARYAWAN
 // =============================================
 
 session_start();
 include "koneksi.php";
 
 // ---- PROTEKSI HALAMAN ----
-// Cek apakah user sudah login
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Cek apakah role-nya karyawan
-// Kalau bukan karyawan, arahkan ke dashboard admin
-if ($_SESSION['role'] != 'mahasiswa') {
+if ($_SESSION['role'] != 'karyawan') {
     header("Location: dashboard_admin.php");
     exit();
 }
-/*background-color: #0037ff;*/
+
+// STATUS DINAMIS (SIMULASI)
+$status_absen = "Belum Absen"; // ganti jadi "Sudah Absen" jika mau tes
+$jam_absen = "-";
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard karyawan</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<title>Dashboard karyawan</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ecf0f1;
-        }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ---- NAVBAR ---- */
-        .navbar {
-            
-            background: linear-gradient(100deg, #024aff, #5c98ff);
-            height: 130px;
-            color: white;
-            padding: 14px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 0px 0px 50px 50px
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ecf0f1;
+}
 
-        .navbar .judul { font-size: 30px; font-weight: bold; }
+/* NAVBAR */
+.navbar {
+    background: linear-gradient(100deg, #024aff, #5c98ff);
+    height: 100px;
+    color: white;
+    padding: 14px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0px 0px 40px 40px;
+}
 
-        .navbar .info-user { 
-            font-size: 16px;
-            margin-right: 20px; }
+.navbar .judul { font-size: 26px; font-weight: bold; }
 
-        .navbar a.btn-logout {
-            background-color: #e74c3c;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 0 0 10px ;
-            text-decoration: none;
-            font-size: 13px;
-            margin-left: 12px;
-        }
+.navbar .info-user { font-size: 14px; }
 
-        .navbar a.btn-logout:hover { background-color: #c0392b; }
+.navbar a.btn-logout {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    margin-left: 10px;
+}
 
-        /* ---- KONTEN ---- */
-        .konten {
-            max-width: 750px;
-            margin: 40px auto;
-            padding: 0 15px;
-        }
+.navbar a.btn-logout:hover { background-color: #c0392b; }
 
-        /* ---- KARTU SELAMAT DATANG ---- */
-        .kartu-welcome {
-            background: linear-gradient(135deg, #024aff, #5c98ff);
-            color: white;
-            padding: 30px 25px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+/* LAYOUT */
+.container {
+    display: flex;
+}
 
-        .kartu-welcome .icon { font-size: 48px; margin-bottom: 12px; }
-        .kartu-welcome h2   { margin-bottom: 8px; font-size: 30px; }
-        .kartu-welcome p    { font-size: 20px; opacity: 0.9; }
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    background: #2c3e50;
+    min-height: 100vh;
+    color: white;
+    padding: 20px;
+}
 
-        /* ---- KARTU INFO ---- */
-        .kartu-info {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 22px 25px;
-            margin-bottom: 20px;
-        }
+.sidebar h3 { margin-bottom: 20px; }
 
-        .kartu-info h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #ecf0f1;
-        }
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+}
 
-        .kartu-info table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.sidebar a:hover {
+    background: #34495e;
+}
 
-        .kartu-info td {
-            padding: 9px 5px;
-            font-size: 14px;
-            border-bottom: 1px solid #f5f5f5;
-        }
+/* MAIN */
+.main {
+    flex: 1;
+}
 
-        .kartu-info td:first-child {
-            color: #0b7dff;
-            width: 40%;
-            font-weight: bold;
-        }
+/* KONTEN */
+.konten {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
 
-        .kartu-info td:last-child { color: #2c3e50; }
+/* STATUS */
+.status-box {
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 6px solid #e74c3c;
+}
 
-        /* Badge */
-        .badge {
-            padding: 3px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-            background-color: #eafaf1;
-            color: #27ae60;
-        }
+.status-box.sudah {
+    border-left: 6px solid #2ecc71;
+}
 
-        /* Info hak akses */
-        .kartu-akses {
-            background: #fff9e6;
-            border: 1px solid #f1c40f;
-            border-radius: 8px;
-            padding: 18px 22px;
-        }
+/* WELCOME */
+.kartu-welcome {
+    background: linear-gradient(135deg, #024aff, #5c98ff);
+    color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-        .kartu-akses h3 { color: #0177ff; margin-bottom: 12px; }
+.kartu-welcome h2 { margin-bottom: 8px; }
 
-        .kartu-akses ul {
-            padding-left: 20px;
-            color: #000000;
-            font-size: 16px;
-            line-height: 1.9;
-        }
-    </style>
+/* AKSI */
+.kartu-aksi {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.aksi-btn {
+    flex: 1;
+    background: #3498db;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.aksi-btn:hover {
+    background: #2980b9;
+}
+
+/* INFO */
+.kartu-info {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.kartu-info h3 { margin-bottom: 10px; }
+
+.kartu-info table {
+    width: 100%;
+}
+
+.kartu-info td {
+    padding: 8px;
+}
+
+.kartu-info td:first-child {
+    font-weight: bold;
+    color: #0b7dff;
+}
+
+.badge {
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: #eafaf1;
+    color: #27ae60;
+}
+
+/* AKSES */
+.kartu-akses {
+    background: #fff9e6;
+    border: 1px solid #f1c40f;
+    border-radius: 8px;
+    padding: 18px;
+}
+</style>
 </head>
+
 <body>
 
 <!-- NAVBAR -->
 <div class="navbar">
-    <div class="judul">🎓 Portal Karyawan</div>
+    <div class="judul">Portal Karyawan</div>
     <div>
-        <span class="info-user">
-            Login sebagai: <strong><?= $_SESSION['username'] ?></strong>
-        </span>
+        Login sebagai: <strong><?= $_SESSION['username'] ?></strong>
         <a href="logout.php" class="btn-logout">Logout</a>
     </div>
 </div>
 
-<!-- KONTEN -->
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h3>📂 Menu</h3>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">🕒 Absensi</a>
+    <a href="#">📊 Riwayat</a>
+    <a href="#">👤 Profil</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
 <div class="konten">
 
-    <!-- Kartu sambutan -->
-    <div class="kartu-welcome">
-        <div class="icon">🎓</div>
-        <h2>Selamat Datang, <?= htmlspecialchars($_SESSION['username']) ?>!</h2>
-        <p>Anda berhasil login sebagai <strong>Karyawan</strong>.</p>
-    </div>
+<!-- STATUS -->
+<div class="status-box <?= ($status_absen == 'Sudah Absen') ? 'sudah' : '' ?>">
+    <h3>📌 Status Hari Ini</h3>
+    <p>Status: <strong><?= $status_absen ?></strong></p>
+    <p>Jam Absen: <?= $jam_absen ?></p>
+</div>
 
-    <!-- Informasi akun -->
-    <div class="kartu-info">
-        <h3>📄 Informasi Akun Anda</h3>
-        <table>
-            <tr>
-                <td>ID User</td>
-                <td><?= $_SESSION['id_user'] ?></td>
-            </tr>
-            <tr>
-                <td>Username</td>
-                <td><?= htmlspecialchars($_SESSION['username']) ?></td>
-            </tr>
-            <tr>
-                <td>Role / Hak Akses</td>
-                <td><span class="badge">Karyawan</span></td>
-            </tr>
-            <tr>
-                <td>Status Login</td>
-                <td>✅ Aktif</td>
-            </tr>
-        </table>
-    </div>
+<!-- WELCOME -->
+<div class="kartu-welcome">
+    <h2>Selamat Datang karyawan yang terhormat, <?= htmlspecialchars($_SESSION['username']) ?>!</h2>
+    <p>Anda login sebagai <strong> Seorang Karyawan</strong></p>
+</div>
 
-    <!-- Hak akses -->
-    <div class="kartu-akses">
-        <h3>⚠️ Hak Akses Karyawan</h3>
-        <ul>
-            <li>✅ Dapat login ke sistem</li>
-            <li>✅ Dapat melihat data profil sendiri</li>
-            <li>❌ Tidak dapat melihat data user lain</li>
-            <li>❌ Tidak dapat menghapus atau mengelola akun</li>
-            <li>❌ Tidak dapat mengakses halaman Admin</li>
-        </ul>
-    </div>
+<!-- AKSI -->
+<div class="kartu-aksi">
+    <div class="aksi-btn">🟢 Absen Sekarang</div>
+    <div class="aksi-btn">📄 Lihat Riwayat</div>
+</div>
+
+<!-- INFO -->
+<div class="kartu-info">
+    <h3>📄 Informasi Akun</h3>
+    <table>
+        <tr>
+            <td>Karyawan ke :</td>
+            <td><?= $_SESSION['id_user'] ?></td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td><?= htmlspecialchars($_SESSION['username']) ?></td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td><span class="badge">Karyawan</span></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>Aktif</td>
+        </tr>
+    </table>
+</div>
+
+<!-- AKSES -->
+<div class="kartu-akses">
+    <h3>⚠️ Hak Akses</h3>
+    <ul>
+        <li>✅ Login dashboard</li>
+        <li>✅ Absensi</li>
+        <li>❌ Kelola user, karyawan lainnya</li>
+        <li>❌ Akses admin</li>
+    </ul>
+</div>
 
 </div>
+</div>
+
+</div>
+
 </body>
 </html>
