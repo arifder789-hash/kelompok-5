@@ -25,7 +25,7 @@ if (isset($_POST['btn_login'])) {
             if ($data['role'] == 'admin') {
                 header("Location: dashboard_admin.php");
             } else {
-                header("Location: dashboard_mahasiswa.php");
+                header("Location: dashboard_karyawan.php");
             }
             exit();
         } else {
