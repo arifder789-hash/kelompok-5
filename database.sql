@@ -18,8 +18,7 @@ CREATE TABLE IF NOT EXISTS tb_login (
 -- 3. Insert data contoh (password = "admin123" di-hash MD5)
 INSERT INTO tb_login (username, password, role) VALUES
 ('admin',     MD5('admin123'),    'admin'),
-('budi',      MD5('budi123'),     'mahasiswa'),
-('sari',      MD5('sari123'),     'mahasiswa');
+('budi',      MD5('budi123'),     'mahasiswa');
 
 -- Setelah ini kamu bisa login dengan:
 -- username: admin     | password: admin123   -> masuk ke Dashboard Admin
