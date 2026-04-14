@@ -1,35 +1,37 @@
 <?php
 // =============================================
 // FILE: dashboard_admin.php
-// Fungsi: Halaman khusus untuk role ADMIN
 // =============================================
 
 session_start();
 include "koneksi.php";
 
 // ---- PROTEKSI HALAMAN ----
-// Cek apakah user sudah login
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Cek apakah role-nya admin
-// Kalau bukan admin, tendang ke halaman mahasiswa
+// ---- PROTEKSI ROLE ----
 if ($_SESSION['role'] != 'admin') {
-    header("Location: dashboard_mahasiswa.php");
+
+    if ($_SESSION['role'] == 'karyawan') {
+        header("Location: dashboard_karyawan.php");
+    } else {
+        header("Location: dashboard_user.php");
+    }
+
     exit();
 }
 
-// Ambil semua data user untuk ditampilkan
+// ---- AMBIL DATA USER ----
 $query_user = "SELECT * FROM tb_login ORDER BY id_user ASC";
 $hasil_user = mysqli_query($koneksi, $query_user);
 
-// ---- PROSES HAPUS USER ----
+// ---- HAPUS USER ----
 if (isset($_GET['hapus'])) {
-    $id_hapus = (int)$_GET['hapus'];  // cast ke integer untuk keamanan
+    $id_hapus = (int)$_GET['hapus'];
 
-    // Jangan izinkan admin hapus akunnya sendiri
     if ($id_hapus == $_SESSION['id_user']) {
         $notif = "Tidak bisa menghapus akun sendiri!";
     } else {
@@ -52,7 +54,7 @@ if (isset($_GET['hapus'])) {
             background-color: #ecf0f1;
         }
 
-        /* ---- NAVBAR ---- */
+        /* NAVBAR */
         .navbar {
             background-color: #2c3e50;
             color: white;
@@ -63,7 +65,6 @@ if (isset($_GET['hapus'])) {
         }
 
         .navbar .judul { font-size: 18px; font-weight: bold; }
-
         .navbar .info-user { font-size: 13px; }
 
         .navbar a.btn-logout {
@@ -78,14 +79,14 @@ if (isset($_GET['hapus'])) {
 
         .navbar a.btn-logout:hover { background-color: #c0392b; }
 
-        /* ---- KONTEN ---- */
+        /* KONTEN */
         .konten {
             max-width: 900px;
             margin: 30px auto;
             padding: 0 15px;
         }
 
-        /* ---- KARTU SELAMAT DATANG ---- */
+        /* WELCOME */
         .kartu-welcome {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
@@ -97,7 +98,7 @@ if (isset($_GET['hapus'])) {
         .kartu-welcome h2 { margin-bottom: 5px; }
         .kartu-welcome p  { font-size: 14px; opacity: 0.85; }
 
-        /* ---- TABEL ---- */
+        /* TABEL */
         .kartu-tabel {
             background: white;
             border-radius: 8px;
@@ -135,7 +136,7 @@ if (isset($_GET['hapus'])) {
         table tr:last-child td { border-bottom: none; }
         table tr:hover td { background-color: #f8f9fa; }
 
-        /* Badge role */
+        /* BADGE ROLE */
         .badge {
             padding: 3px 10px;
             border-radius: 12px;
@@ -148,12 +149,17 @@ if (isset($_GET['hapus'])) {
             color: #e74c3c;
         }
 
-        .badge-mahasiswa {
-            background-color: #eafaf1;
-            color: #27ae60;
+        .badge-karyawan {
+            background-color: #e8f4fd;
+            color: #2980b9;
         }
 
-        /* Tombol hapus */
+        .badge-user {
+            background-color: #f4f6f7;
+            color: #7f8c8d;
+        }
+
+        /* BUTTON */
         .btn-hapus {
             background-color: #e74c3c;
             color: white;
@@ -165,7 +171,7 @@ if (isset($_GET['hapus'])) {
 
         .btn-hapus:hover { background-color: #c0392b; }
 
-        /* Notifikasi */
+        /* NOTIF */
         .notif {
             padding: 12px 16px;
             border-radius: 6px;
@@ -179,7 +185,6 @@ if (isset($_GET['hapus'])) {
 </head>
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
     <div class="judul">⚙️ Sistem Login PHP</div>
     <div>
@@ -191,16 +196,13 @@ if (isset($_GET['hapus'])) {
     </div>
 </div>
 
-<!-- KONTEN -->
 <div class="konten">
 
-    <!-- Kartu sambutan -->
     <div class="kartu-welcome">
         <h2>Selamat datang, <?= $_SESSION['username'] ?>! 👋</h2>
-        <p>Anda login sebagai <strong>Admin</strong>. Anda bisa melihat dan mengelola semua akun pengguna.</p>
+        <p>Anda login sebagai <strong>Admin</strong>. Anda bisa mengelola semua pengguna.</p>
     </div>
 
-    <!-- Notifikasi -->
     <?php if (isset($_GET['notif']) && $_GET['notif'] == 'hapus') : ?>
         <div class="notif notif-sukses">✅ User berhasil dihapus.</div>
     <?php endif; ?>
@@ -209,7 +211,6 @@ if (isset($_GET['hapus'])) {
         <div class="notif notif-error">⚠️ <?= $notif ?></div>
     <?php endif; ?>
 
-    <!-- Tabel Daftar User -->
     <div class="kartu-tabel">
         <div class="header-tabel">
             <h3>📋 Daftar Semua Pengguna</h3>
@@ -219,18 +220,27 @@ if (isset($_GET['hapus'])) {
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>ID User</th>
+                    <th>ID</th>
                     <th>Username</th>
-                    <th>Password (MD5)</th>
+                    <th>Password</th>
                     <th>Role</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
+                <?php $no = 1; while ($row = mysqli_fetch_assoc($hasil_user)) : ?>
+
                 <?php
-                $no = 1;
-                while ($row = mysqli_fetch_assoc($hasil_user)) :
+                $role = strtolower($row['role']);
+                $badge_class = 'badge-user';
+
+                if ($role == 'admin') {
+                    $badge_class = 'badge-admin';
+                } elseif ($role == 'karyawan') {
+                    $badge_class = 'badge-karyawan';
+                }
                 ?>
+
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $row['id_user'] ?></td>
@@ -239,15 +249,15 @@ if (isset($_GET['hapus'])) {
                         <?= substr($row['password'], 0, 20) ?>...
                     </td>
                     <td>
-                        <span class="badge badge-<?= $row['role'] ?>">
-                            <?= ucfirst($row['role']) ?>
+                        <span class="badge <?= $badge_class ?>">
+                            <?= ucfirst($role) ?>
                         </span>
                     </td>
                     <td>
                         <?php if ($row['id_user'] != $_SESSION['id_user']) : ?>
-                            <a href="?hapus=<?= $row['id_user'] ?>" 
+                            <a href="?hapus=<?= $row['id_user'] ?>"
                                class="btn-hapus"
-                               onclick="return confirm('Yakin ingin menghapus user <?= $row['username'] ?>?')">
+                               onclick="return confirm('Yakin hapus user ini?')">
                                 Hapus
                             </a>
                         <?php else : ?>
@@ -255,6 +265,7 @@ if (isset($_GET['hapus'])) {
                         <?php endif; ?>
                     </td>
                 </tr>
+
                 <?php endwhile; ?>
             </tbody>
         </table>
