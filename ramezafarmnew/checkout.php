@@ -1,81 +1,252 @@
 <?php
-session_start();
-date_default_timezone_set('Asia/Jakarta');
-include 'config/koneksi.php';
+// ============================================
+//  checkout.php — Form Pemesanan
+// ============================================
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/cart_helper.php';
 
-// Proteksi: Harus login dan keranjang tidak boleh kosong
-if (!isset($_SESSION['id_pelanggan']) || empty($_SESSION['keranjang'])) {
-    header("Location: userdash.php");
-    exit();
+// Redirect jika cart kosong
+if (cartEmpty()) {
+    header('Location: keranjang.php');
+    exit;
 }
 
-$id_user = $_SESSION['id_pelanggan'];
+$items     = cartGetAll();
+$total     = cartTotal();
+$cartCount = cartCount();
 
-// Ambil data user untuk ditampilkan
-$ambil_user = mysqli_query($conn, "SELECT * FROM pelanggan WHERE id_pelanggan = '$id_user'");
-$user = mysqli_fetch_assoc($ambil_user);
-
-// Menghitung total harga dari session keranjang
-$total_akhir = 0;
-foreach ($_SESSION['keranjang'] as $id_produk => $jumlah) {
-    $ambil_produk = mysqli_query($conn, "SELECT harga FROM produk WHERE id_produk = '$id_produk'");
-    $data_produk = mysqli_fetch_assoc($ambil_produk);
-    $subtotal = $data_produk['harga'] * $jumlah;
-    $total_akhir += $subtotal;
-}
-
-// Jika tombol Konfirmasi ditekan
-if (isset($_POST['konfirmasi'])) {
-    $tanggal = date("Y-m-d H:i:s");
-    $status = "Pending";
-
-    // 1. Simpan ke tabel pesanan (sesuai gambar tabelmu)
-    $query_pesanan = "INSERT INTO pesanan (id_pelanggan, total_harga, status, tanggal_pesan) 
-                      VALUES ('$id_user', '$total_akhir', '$status', '$tanggal')";
-    
-    if (mysqli_query($conn, $query_pesanan)) {
-        $id_pesanan_baru = mysqli_insert_id($conn);
-
-        // 2. Simpan rincian ke pesanan_detail (biar admin tahu produk apa saja yang dibeli)
-        foreach ($_SESSION['keranjang'] as $id_produk => $jumlah) {
-            $ambil_p = mysqli_query($conn, "SELECT harga FROM produk WHERE id_produk = '$id_produk'");
-            $dp = mysqli_fetch_assoc($ambil_p);
-            $sub = $dp['harga'] * $jumlah;
-
-            mysqli_query($conn, "INSERT INTO detail_pesanan (id_pesanan, id_produk, jumlah, harga_saat_beli) 
-                                 VALUES ('$id_pesanan_baru', '$id_produk', '$jumlah', '$sub')");
-        }
-
-        // 3. Kosongkan keranjang
-        unset($_SESSION['keranjang']);
-
-        echo "<script>alert('Pesanan Anda telah dikirim ke Admin!'); window.location='riwayat_pesanan.php';</script>";
-    } else {
-        echo "Error: " . mysqli_error($conn);
-    }
-}
+// Flash error dari proses_checkout.php
+$errors = $_SESSION['checkout_errors'] ?? [];
+$old    = $_SESSION['checkout_old']    ?? [];
+unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Checkout - Rameza Egg Farm</title>
-    <link rel="stylesheet" href="assets/css/userdash.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — Rameza Egg Farm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/shop.css"/>
 </head>
 <body>
-<div class="container">
-    <h2>Konfirmasi Checkout</h2>
-    <div class="info-user">
-        <p><strong>Nama:</strong> <?= $user['username']; ?></p>
-        <p><strong>No. Telp:</strong> <?= $user['noTelp']; ?></p>
-        <p><strong>Total Bayar:</strong> Rp <?= number_format($total_akhir); ?></p>
-    </div>
 
-    <form method="POST">
-        <p>Pastikan pesanan Anda sudah benar sebelum menekan tombol konfirmasi.</p>
-        <button type="submit" name="konfirmasi" class="btn">Konfirmasi Pesanan</button>
-        <a href="keranjang.php" class="btn-link">Batal</a>
-    </form>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="beranda.php" class="navbar-brand">🐔 Rameza Farm</a>
+  <ul class="navbar-links">
+    <li><a href="beranda.php">Beranda</a></li>
+    <li><a href="tentang.php">Tentang</a></li>
+    <li><a href="produk.php">Produk</a></li>
+    <li><a href="kontak.php">Kontak</a></li>
+  </ul>
+  <a href="keranjang.php" class="cart-btn" id="cart-btn">
+    🛒 Keranjang
+    <span class="cart-badge"><?= $cartCount ?></span>
+  </a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header small">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="beranda.php">Beranda</a> /
+      <a href="produk.php">Produk</a> /
+      <a href="keranjang.php">Keranjang</a> /
+      <span>Checkout</span>
+    </div>
+    <h1 class="page-title">Informasi <span class="blue">Pemesanan</span></h1>
+  </div>
 </div>
+
+<!-- STEPS INDICATOR -->
+<div class="container">
+  <div class="steps">
+    <div class="step done">1 · Pilih Produk</div>
+    <div class="step-line done"></div>
+    <div class="step done">2 · Keranjang</div>
+    <div class="step-line active"></div>
+    <div class="step active">3 · Checkout</div>
+    <div class="step-line"></div>
+    <div class="step">4 · Selesai</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<main class="container cart-layout" style="padding:32px 0 80px;">
+
+  <!-- Error Banner -->
+  <?php if ($errors): ?>
+    <div class="error-banner" style="grid-column:1/-1;">
+      <strong>⚠️ Mohon perbaiki kesalahan berikut:</strong>
+      <ul><?php foreach ($errors as $e): ?><li><?= htmlspecialchars($e) ?></li><?php endforeach; ?></ul>
+    </div>
+  <?php endif; ?>
+
+  <!-- ── KIRI: Form ── -->
+  <div class="cart-items-col">
+    <form method="POST" action="proses_checkout.php" id="checkout-form" novalidate>
+      <?php
+        // CSRF token
+        if (!isset($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16));
+      ?>
+      <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>"/>
+
+      <!-- Data Diri -->
+      <div class="cart-card">
+        <h2 class="cart-card-title">📋 Data Pemesan</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="nama">Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="nama" name="nama" class="form-input <?= isset($errors) && in_array_key('nama', $old) ? '' : '' ?>"
+                   value="<?= htmlspecialchars($old['nama'] ?? '') ?>"
+                   placeholder="Masukkan nama lengkap" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="no_wa">No. WhatsApp <span class="req">*</span></label>
+            <div class="input-group">
+              <span class="input-prefix">+62</span>
+              <input type="tel" id="no_wa" name="no_wa" class="form-input"
+                     value="<?= htmlspecialchars($old['no_wa'] ?? '') ?>"
+                     placeholder="812-XXXX-XXXX" required/>
+            </div>
+            <small class="form-hint">Digunakan untuk konfirmasi pesanan via WhatsApp</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span class="text-muted">(opsional)</span></label>
+          <input type="email" id="email" name="email" class="form-input"
+                 value="<?= htmlspecialchars($old['email'] ?? '') ?>"
+                 placeholder="contoh@email.com"/>
+        </div>
+      </div>
+
+      <!-- Alamat Pengiriman -->
+      <div class="cart-card" style="margin-top:20px;">
+        <h2 class="cart-card-title">📍 Alamat Pengiriman</h2>
+
+        <div class="form-group">
+          <label class="form-label" for="alamat">Alamat Lengkap <span class="req">*</span></label>
+          <textarea id="alamat" name="alamat" class="form-input" rows="3"
+                    placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan…"
+                    required><?= htmlspecialchars($old['alamat'] ?? '') ?></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="kota">Kota / Kecamatan <span class="req">*</span></label>
+            <input type="text" id="kota" name="kota" class="form-input"
+                   value="<?= htmlspecialchars($old['kota'] ?? '') ?>"
+                   placeholder="mis. Bondowoso" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="metode_bayar">Metode Pembayaran <span class="req">*</span></label>
+            <select id="metode_bayar" name="metode_bayar" class="form-input" required>
+              <option value="cod"      <?= ($old['metode_bayar'] ?? '') === 'cod'      ? 'selected' : '' ?>>💵 COD (Bayar di Tempat)</option>
+              <option value="transfer" <?= ($old['metode_bayar'] ?? '') === 'transfer' ? 'selected' : '' ?>>🏦 Transfer Bank</option>
+              <option value="wa"       <?= ($old['metode_bayar'] ?? 'wa') === 'wa'     ? 'selected' : '' ?>>💬 Konfirmasi via WhatsApp</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="catatan">Catatan Pesanan <span class="text-muted">(opsional)</span></label>
+          <textarea id="catatan" name="catatan" class="form-input" rows="2"
+                    placeholder="Instruksi khusus, waktu pengiriman yang diinginkan, dll."><?= htmlspecialchars($old['catatan'] ?? '') ?></textarea>
+        </div>
+      </div>
+
+      <!-- Submit (mobile) -->
+      <button type="submit" class="btn-primary checkout-btn" style="margin-top:20px;display:none;" id="submit-mobile">
+        ✅ Buat Pesanan
+      </button>
+    </form>
+  </div>
+
+  <!-- ── KANAN: Ringkasan ── -->
+  <div class="cart-summary-col">
+    <div class="cart-card">
+      <h2 class="cart-card-title">🧾 Ringkasan Pesanan</h2>
+
+      <!-- Items -->
+      <div class="checkout-items">
+        <?php foreach ($items as $item): ?>
+          <div class="checkout-item">
+            <div class="checkout-item-info">
+              <span class="checkout-item-name"><?= htmlspecialchars($item['nama']) ?></span>
+              <span class="checkout-item-qty"><?= $item['qty'] ?> <?= htmlspecialchars($item['satuan']) ?></span>
+            </div>
+            <span class="checkout-item-sub"><?= rupiah($item['subtotal']) ?></span>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span><?= rupiah($total) ?></span>
+      </div>
+      <div class="summary-row">
+        <span>Ongkos Kirim</span>
+        <span class="text-muted">Dikonfirmasi via WA</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span><?= rupiah($total) ?></span>
+      </div>
+
+      <button type="submit" form="checkout-form" class="btn-primary checkout-btn" id="submit-btn">
+        ✅ Buat Pesanan
+      </button>
+
+      <a href="keranjang.php" class="btn-outline" style="display:block;text-align:center;margin-top:10px;">
+        ← Kembali ke Keranjang
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<!-- TOAST -->
+<div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">🐔 <strong>Rameza Egg Farm</strong></div>
+    <div class="footer-copy">© 2025 Rameza Farm · Bondowoso, Jawa Timur</div>
+  </div>
+</footer>
+
+<script>
+// Client-side form validation
+document.getElementById('checkout-form').addEventListener('submit', function(e) {
+  const nama  = document.getElementById('nama').value.trim();
+  const noWa  = document.getElementById('no_wa').value.trim();
+  const alamat = document.getElementById('alamat').value.trim();
+  const kota  = document.getElementById('kota').value.trim();
+  let ok = true;
+
+  [['nama', nama], ['no_wa', noWa], ['alamat', alamat], ['kota', kota]].forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!val) {
+      el.classList.add('input-error');
+      ok = false;
+    } else {
+      el.classList.remove('input-error');
+    }
+  });
+
+  if (!ok) {
+    e.preventDefault();
+    document.querySelector('.cart-items-col').scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
 </body>
 </html>

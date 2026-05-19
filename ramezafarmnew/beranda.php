@@ -1,9 +1,6 @@
 ﻿<?php include 'includes/header.php'; ?>
 <?php include 'includes/navbar.php'; ?>
 
-<!-- ═══════════════════════════
-     HERO
-════════════════════════════ -->
 <section class="hero" id="hero" aria-label="Hero tentang kami">
   <div class="hero-dots" aria-hidden="true"></div>
 
@@ -41,7 +38,6 @@
     </div>
   </div>
 
-  <!-- Desktop visual -->
   <div class="hero-visual">
     <div class="hero-img-wrap">
       <img
@@ -60,10 +56,6 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     STATS BAND
-════════════════════════════ -->
 <div class="stats-band" id="stats">
   <div class="stats-grid section-container">
     <div class="stat-item reveal">
@@ -97,14 +89,8 @@
   </div>
 </div>
 
-
-<!-- ═══════════════════════════
-     TENTANG KAMI / STORY
-════════════════════════════ -->
 <section class="about-section" id="tentang">
   <div class="section-container about-grid">
-
-    <!-- Text -->
     <div class="reveal">
       <div class="about-label-bar"></div>
       <div class="section-label">Kisah Kami</div>
@@ -114,23 +100,19 @@
       </h2>
 
       <p class="about-body">
-        Rameza Farm merupakan peternakan ayam petelur yang berfokus pada produksi telur berkualitas tinggi dengan sistem perawatan unggas yang modern dan terkontrol.
-      </p>
-      <p class="about-body">
-        Kami menjaga kebersihan kandang, kualitas pakan, serta kesehatan ayam agar telur yang dihasilkan tetap higienis dan aman dikonsumsi setiap hari.
+        Rameza Farm lahir dengan visi sederhana: menyediakan akses protein berkualitas tinggi secara konsisten. Melalui transformasi dari peternakan tradisional menjadi ekosistem modern, kami memastikan setiap butir telur adalah hasil dari proses yang higienis dan alamiah.
       </p>
 
       <blockquote class="about-quote">
-        "Dengan sistem pemanenan harian dan distribusi cepat, kami memastikan telur sampai ke tangan konsumen dalam kondisi terbaik."
+        "Dengan sistem panen harian dan perawatan unggas yang terkontrol, telur sampai ke tangan konsumen dalam kondisi terbaik."
       </blockquote>
 
-      <a href="beranda.php#kontak" class="about-cta">
-        Hubungi Kami
+      <a href="tentang.php" class="about-cta">
+        mau tau lebih lanjut?
         <span class="arrow">→</span>
       </a>
     </div>
 
-    <!-- Visual collage -->
     <div class="about-visual reveal reveal-delay-2">
       <div class="about-img-primary">
         <img
@@ -154,129 +136,39 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     VALUES / KOMITMEN
-════════════════════════════ -->
 <section class="values-section" id="komitmen">
   <div class="section-container">
     <div class="values-header reveal">
-      <div class="section-label">Nilai &amp; Komitmen</div>
-      <h2 class="section-title">Prinsip yang Mendasari<br/><span class="italic blue">Setiap Telur yang Kami Hasilkan</span></h2>
-      <p class="section-desc" style="margin:16px auto 0;">Kami percaya bahwa produk terbaik lahir dari prinsip yang kuat — mulai dari kandang hingga ke meja makan Anda.</p>
+      <div class="section-label">Masa Depan Kami</div>
+      <h2 class="section-title">Visi &amp; <span class="italic blue">Misi Utama</span></h2>
+      <p class="section-desc" style="margin:16px auto 0;">Pilar utama yang menggerakkan setiap inovasi dan operasional di Rameza Farm.</p>
     </div>
 
     <div class="values-grid">
-      <div class="value-card reveal">
-        <div class="value-icon-wrap"><span class="icon-emoji">🧹</span></div>
-        <div class="value-name">Kebersihan &amp; Higienitas</div>
-        <p class="value-desc">Kandang dibersihkan secara rutin dengan jadwal ketat. Telur dipanen dan diproses dalam kondisi steril untuk menjamin keamanan pangan setiap saat.</p>
-      </div>
+      <a href="tentang.php#komitmen" class="value-card reveal">
+        <div class="value-icon-wrap"><span class="icon-emoji">🎯</span></div>
+        <div class="value-name">Visi Kami</div>
+        <p class="value-desc">Menjadi pemimpin industri peternakan ayam petelur di Jawa Timur yang mengedepankan inovasi dan kualitas tanpa kompromi.</p>
+        <div style="margin-top: 15px; font-size: 13px; font-weight: 700; color: var(--blue);">Lihat Detail &rarr;</div>
+      </a>
 
-      <div class="value-card reveal reveal-delay-1">
-        <div class="value-icon-wrap"><span class="icon-emoji">❤️</span></div>
-        <div class="value-name">Kesehatan Unggas</div>
-        <p class="value-desc">Ayam yang sehat menghasilkan telur terbaik. Kami memantau kesehatan setiap ekor dengan sistem vaksinasi dan nutrisi pakan yang terstandarisasi.</p>
-      </div>
+      <a href="tentang.php#komitmen" class="value-card reveal reveal-delay-1">
+        <div class="value-icon-wrap"><span class="icon-emoji">🛡️</span></div>
+        <div class="value-name">Kualitas Higienis</div>
+        <p class="value-desc">Menghasilkan telur dengan standar kebersihan tertinggi melalui pengawasan ketat di setiap rantai produksi.</p>
+        <div style="margin-top: 15px; font-size: 13px; font-weight: 700; color: var(--blue);">Lihat Detail &rarr;</div>
+      </a>
 
-      <div class="value-card reveal reveal-delay-2">
-        <div class="value-icon-wrap"><span class="icon-emoji">⚡</span></div>
-        <div class="value-name">Distribusi Cepat</div>
-        <p class="value-desc">Sistem panen harian dan armada distribusi yang handal memastikan telur segar kami sampai ke pelanggan dalam hitungan jam setelah dipanen.</p>
-      </div>
-
-      <div class="value-card reveal">
-        <div class="value-icon-wrap"><span class="icon-emoji">🤝</span></div>
-        <div class="value-name">Kejujuran &amp; Transparansi</div>
-        <p class="value-desc">Harga yang kami tawarkan adalah harga yang adil. Hubungan jangka panjang dibangun di atas kepercayaan, bukan sekadar transaksi sesaat.</p>
-      </div>
-
-      <div class="value-card reveal reveal-delay-1">
-        <div class="value-icon-wrap"><span class="icon-emoji">🌱</span></div>
-        <div class="value-name">Ramah Lingkungan</div>
-        <p class="value-desc">Limbah kandang kami olah menjadi pupuk organik bagi petani sekitar. Kami berkomitmen menjadi bagian dari ekosistem pertanian yang berkelanjutan.</p>
-      </div>
-
-      <div class="value-card reveal reveal-delay-2">
-        <div class="value-icon-wrap"><span class="icon-emoji">🏆</span></div>
-        <div class="value-name">Kualitas Terjamin</div>
-        <p class="value-desc">Setiap batch telur melalui proses seleksi ketat sebelum dikirim. Kami tidak pernah mengirimkan produk yang tidak memenuhi standar kualitas kami.</p>
-      </div>
+      <a href="tentang.php#komitmen" class="value-card reveal reveal-delay-2">
+        <div class="value-icon-wrap"><span class="icon-emoji">🐔</span></div>
+        <div class="value-name">Etika Peternakan</div>
+        <p class="value-desc">Mengutamakan kesejahteraan unggas dengan lingkungan yang alami dan bebas stres demi hasil yang maksimal.</p>
+        <div style="margin-top: 15px; font-size: 13px; font-weight: 700; color: var(--blue);">Lihat Detail &rarr;</div>
+      </a>
     </div>
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     TIMELINE
-════════════════════════════ -->
-<section class="timeline-section" id="perjalanan">
-  <div class="section-container">
-    <div class="timeline-header reveal">
-      <div class="section-label">Perjalanan Kami</div>
-      <h2 class="section-title">Satu Dekade <span class="blue italic">Dedikasi</span><br/>dalam Peternakan Berkualitas</h2>
-    </div>
-
-    <div class="timeline">
-      <div class="timeline-line" aria-hidden="true"></div>
-
-      <div class="tl-item reveal">
-        <div class="tl-content">
-          <div class="tl-year">📅 2015</div>
-          <div class="tl-title">Langkah Awal Rameza Farm</div>
-          <p class="tl-desc">Rameza Farm resmi berdiri dengan kandang pertama berkapasitas 500 ekor ayam petelur. Berawal dari tekad untuk menghadirkan telur segar berkualitas untuk masyarakat Bondowoso.</p>
-        </div>
-        <div class="tl-dot"></div>
-        <div class="tl-spacer"></div>
-      </div>
-
-      <div class="tl-item right reveal">
-        <div class="tl-spacer"></div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <div class="tl-year">📅 2017</div>
-          <div class="tl-title">Ekspansi Kandang Pertama</div>
-          <p class="tl-desc">Kapasitas meningkat menjadi 2.000 ekor. Membangun jaringan distribusi langsung ke pasar tradisional dan warung-warung di wilayah Bondowoso dan sekitarnya.</p>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <div class="tl-content">
-          <div class="tl-year">📅 2019</div>
-          <div class="tl-title">Modernisasi Sistem Pakan</div>
-          <p class="tl-desc">Mengadopsi sistem pakan otomatis dan rekam medis unggas digital. Produksi meningkat 40% dengan penurunan angka kematian unggas yang signifikan.</p>
-        </div>
-        <div class="tl-dot"></div>
-        <div class="tl-spacer"></div>
-      </div>
-
-      <div class="tl-item right reveal">
-        <div class="tl-spacer"></div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <div class="tl-year">📅 2021</div>
-          <div class="tl-title">Diversifikasi Produk</div>
-          <p class="tl-desc">Mulai menjual bibit unggas, pakan, dan obat-obatan ternak. Rameza Farm bertransformasi menjadi penyedia kebutuhan peternakan yang lebih lengkap dan terpadu.</p>
-        </div>
-      </div>
-
-      <div class="tl-item reveal">
-        <div class="tl-content">
-          <div class="tl-year">📅 2025</div>
-          <div class="tl-title">Satu Dekade Kepercayaan</div>
-          <p class="tl-desc">Merayakan 10 tahun beroperasi dengan lebih dari 5.000 ekor ayam produktif dan jaringan pelanggan yang terus berkembang di seluruh Jawa Timur.</p>
-        </div>
-        <div class="tl-dot"></div>
-        <div class="tl-spacer"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════
-     PRODUK HIGHLIGHT
-════════════════════════════ -->
 <section class="products-section" id="produk">
   <div class="section-container">
     <div class="products-header">
@@ -355,10 +247,6 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     GALLERY
-════════════════════════════ -->
 <section class="gallery-section" id="galeri">
   <div class="section-container">
     <div class="reveal" style="margin-bottom:48px;">
@@ -368,51 +256,27 @@
 
     <div class="gallery-grid reveal">
       <div class="g-item">
-        <img
-          src="assets/img/foto-kandang.jpeg"
-          alt="Kandang ayam petelur"
-          onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=700&q=80'"
-        />
+        <img src="assets/img/foto-kandang.jpeg" alt="Kandang ayam petelur" onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=700&q=80'" />
         <div class="g-caption">Kandang bersih & terawat</div>
       </div>
       <div class="g-item">
-        <img
-          src="assets/img/gambar-telur.jpg"
-          alt="Telur segar hasil panen"
-          onerror="this.src='https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&q=80'"
-        />
+        <img src="assets/img/gambar-telur.jpg" alt="Telur segar hasil panen" onerror="this.src='https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&q=80'" />
         <div class="g-caption">Panen telur setiap pagi</div>
       </div>
       <div class="g-item">
-        <img
-          src="assets/img/pakan.jpeg"
-          alt="Pakan ayam berkualitas"
-          onerror="this.src='https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&q=80'"
-        />
+        <img src="assets/img/pakan.jpeg" alt="Pakan ayam berkualitas" onerror="this.src='https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=400&q=80'" />
         <div class="g-caption">Pakan berkualitas tinggi</div>
       </div>
       <div class="g-item">
-        <img
-          src="assets/img/foto-kandang2.jpeg"
-          alt="Distribusi telur segar"
-          onerror="this.src='https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80'"
-        />
+        <img src="assets/img/foto-kandang2.jpeg" alt="Distribusi telur segar" onerror="this.src='https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80'" />
         <div class="g-caption">Siap distribusi setiap hari</div>
       </div>
       <div class="g-item">
-        <img
-          src="assets/img/ayam-petelur-afkir.jpg"
-          alt="Ayam petelur sehat"
-          onerror="this.src='https://images.unsplash.com/photo-1555859258-8078cdda7b22?w=700&q=80'"
-        />
+        <img src="assets/img/ayam-petelur-afkir.jpg" alt="Ayam petelur sehat" onerror="this.src='https://images.unsplash.com/photo-1555859258-8078cdda7b22?w=700&q=80'" />
         <div class="g-caption">Ayam petelur sehat & produktif</div>
       </div>
       <div class="g-item">
-        <img
-          src="assets/img/foto-kandang3.jpeg"
-          alt="Suasana farm"
-          onerror="this.src='https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=500&q=80'"
-        />
+        <img src="assets/img/foto-kandang3.jpeg" alt="Suasana farm" onerror="this.src='https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=500&q=80'" />
         <div class="g-caption">Suasana pagi di peternakan kami</div>
       </div>
     </div>
@@ -423,10 +287,6 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     TESTIMONIALS
-════════════════════════════ -->
 <section class="testi-section" id="testimoni">
   <div class="section-container">
     <div class="testi-header reveal">
@@ -481,88 +341,4 @@
   </div>
 </section>
 
-
-<!-- ═══════════════════════════
-     KONTAK / CTA
-════════════════════════════ -->
-<section class="cta-section" id="kontak">
-  <div class="section-container cta-grid">
-
-    <!-- Info kontak -->
-    <div class="reveal">
-      <div class="section-label">Hubungi Kami</div>
-      <h2 class="section-title">Kami Siap<br/><span class="blue italic">Melayani Anda</span></h2>
-      <p class="section-desc">Isi formulir di samping atau hubungi langsung kami melalui WhatsApp untuk respons lebih cepat.</p>
-
-      <div class="cta-contact-list">
-        <div class="cta-contact-item">
-          <div class="cta-icon">📱</div>
-          <div>
-            <div class="cta-contact-label">WhatsApp</div>
-            <div class="cta-contact-value">+62 812-XXXX-XXXX</div>
-          </div>
-        </div>
-        <div class="cta-contact-item">
-          <div class="cta-icon">📍</div>
-          <div>
-            <div class="cta-contact-label">Lokasi</div>
-            <div class="cta-contact-value">Bondowoso, Jawa Timur</div>
-          </div>
-        </div>
-        <div class="cta-contact-item">
-          <div class="cta-icon">🕐</div>
-          <div>
-            <div class="cta-contact-label">Jam Operasional</div>
-            <div class="cta-contact-value">Setiap Hari, 07.00 – 13.00 WIB</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Form -->
-    <div class="reveal reveal-delay-2">
-      <div class="cta-form-card">
-        <div class="form-header">
-          <div class="form-header-icon">💬</div>
-          <div>
-            <div class="form-header-title">Kami ingin menghubungi Anda</div>
-            <div class="form-header-sub">Silakan isi formulir dan kami akan segera merespons</div>
-          </div>
-        </div>
-
-        <form id="contact-form" novalidate>
-          <div class="form-group">
-            <label class="form-label" for="nama">Nama Lengkap <span class="req">*</span></label>
-            <input type="text" id="nama" class="form-input" placeholder="Masukkan nama Anda" autocomplete="name" required/>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="wa">No. WhatsApp <span class="req">*</span></label>
-            <div class="form-wa-wrap">
-              <div class="form-wa-prefix">+62</div>
-              <input type="tel" id="wa" class="form-input" placeholder="812-XXXX-XXXX" autocomplete="tel" required/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" class="form-input" placeholder="contoh@email.com" autocomplete="email" required/>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="pesan">Pesan (Opsional)</label>
-            <textarea id="pesan" class="form-input" rows="3" placeholder="Tanyakan tentang produk, harga, atau pengiriman…" style="resize:vertical;"></textarea>
-          </div>
-          <button type="submit" class="form-submit">
-            <span>📤</span> Hubungi Kami via WhatsApp
-          </button>
-        </form>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-    <!-- Footer -->
-    <?php include 'includes/footer.php'; ?>
-
-
-
+<?php include 'includes/footer.php'; ?>
