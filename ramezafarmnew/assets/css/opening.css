@@ -1,0 +1,324 @@
+/* ============================================================
+   PEMBUKA.CSS — Rameza Egg Farm — Opening / Splash Page
+   ============================================================ */
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+    --blue-main: #1f6fd6;
+    --blue-dark: #174ea6;
+    --blue-soft: #eaf3ff;
+    --blue-glow: #5aa2ff;
+    --text-dark: #1e293b;
+    --bg-dark: #0b1a2a;
+    --section-light: #f4f8ff;
+}
+
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    /* no scroll on the splash page */
+    background: var(--bg-dark);
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn .6s ease;
+    scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+li,
+button {
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== GLASS HEADER (decorative navbar) ===== */
+.glass-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    z-index: 10;
+    background: rgba(23, 78, 166, 0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all .4s ease;
+}
+
+/* ===== INTRO SPLASH LOADER ===== */
+#intro-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+#intro-loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-inner {
+    text-align: center;
+    color: white;
+}
+
+.intro-logo {
+    width: 120px;
+    margin-bottom: 18px;
+    opacity: 0;
+    transform: translateY(30px) scale(.8);
+    animation: logoReveal 1.4s ease forwards;
+}
+
+.intro-text {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: textReveal 1.2s ease .7s forwards;
+}
+
+@keyframes logoReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes textReveal {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== PAGE TRANSITION OVERLAY ===== */
+.page-transition {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s ease;
+}
+
+.page-transition.active {
+    opacity: 1;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 720px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: -2px;
+}
+
+/* Cinematic background image with zoom animation */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("assets/img/foto-kandang2.jpeg") center center / cover no-repeat;
+    z-index: 0;
+    transform: scale(1.15);
+    animation: heroZoom 9s ease-out forwards;
+}
+
+/* Dark gradient overlay */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(8, 18, 35, 0.55),
+            rgba(20, 70, 150, 0.45),
+            rgba(10, 35, 80, 0.75));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    max-width: 700px;
+    padding: 20px;
+    margin-top: 40px;
+    opacity: 0;
+    animation: heroFade 1.2s ease forwards;
+}
+
+@keyframes heroZoom {
+    0% {
+        transform: scale(1.18) translateY(25px);
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes heroFade {
+    from {
+        transform: translateY(25px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== LOGO ===== */
+.logo {
+    width: 180px;
+    margin-bottom: 15px;
+    animation: logoFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.6));
+}
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+/* ===== HERO TEXT ===== */
+.hero h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+/* ===== START BUTTON ===== */
+.start-btn {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    padding: 14px 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue-main), var(--blue-dark));
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    animation: pulse 2.2s infinite;
+}
+
+/* Shimmer sweep on hover */
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
+    transition: left .6s;
+}
+
+.start-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    background: linear-gradient(135deg, #2f80ff, #1c5ed6);
+}
+
+.start-btn:hover::before {
+    left: 100%;
+}
+
+.start-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 18px rgba(255, 193, 7, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+    }
+}
+
+/* ===== HERO WAVE (bottom decoration) ===== */
+.hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    line-height: 0;
+    z-index: 2;
+}
+
+.hero-wave svg {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-wave path {
+    fill: var(--section-light);
+}
