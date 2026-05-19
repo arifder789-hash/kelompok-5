@@ -20,7 +20,7 @@ function cartGetAll(): array {
 // ─── Tambah / update qty item ────────────────
 function cartAdd(array $produk, int $qty = 1): bool {
     cartInit();
-    $id = (int) $produk['id'];
+    $id = (int) $produk['id_produk'];
 
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['produk_id'] === $id) {
@@ -33,8 +33,8 @@ function cartAdd(array $produk, int $qty = 1): bool {
 
     $_SESSION['cart'][] = [
         'produk_id' => $id,
-        'kode'      => $produk['kode'],
-        'nama'      => $produk['nama'],
+        'kode'      => $produk['kode_produk'],
+        'nama'      => $produk['nama_produk'],
         'harga'     => (float) $produk['harga'],
         'satuan'    => $produk['satuan'],
         'gambar'    => $produk['gambar'] ?? '',

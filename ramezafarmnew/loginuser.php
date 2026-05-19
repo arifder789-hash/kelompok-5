@@ -3,19 +3,22 @@ session_start();
 include 'config/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim(mysqli_real_escape_string($conn, $_POST['username']));
-    $password = trim($_POST['password']);
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-    $sql    = "SELECT * FROM project_rameza WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql);
+    $stmt = $conn->prepare("SELECT id_pelanggan, username, password_pelanggan FROM pelanggan WHERE username = ?");
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password_pelanggan'])) {
-            $_SESSION['admin_logged_in'] = true;
-            $_SESSION['username']        = $row['username'];
+            $_SESSION['id_pelanggan'] = (int) $row['id_pelanggan'];
+            $_SESSION['username']     = $row['username'];
+            $_SESSION['nama_user']    = $row['username'];
             
-            header("Location: ../dashboard.php");
+            header("Location: pages/produk.php");
             exit;
         } else {
             $error = "Password salah!";

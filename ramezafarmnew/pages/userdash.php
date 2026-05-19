@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config/koneksi.php';
+include '../config/koneksi.php';
 
 // Pastikan user login
 if (!isset($_SESSION['id_pelanggan'])) {
-    header("Location: project2/loginuser.php");
+    header("Location: ../loginuser.php");
     exit();
 }
 ?>
@@ -12,11 +12,11 @@ if (!isset($_SESSION['id_pelanggan'])) {
 <html lang="id">
 <head>
     <title>Katalog - Rameza Egg Farm</title>
-    <link rel="stylesheet" href="assets/css/userdash.css">
+    <link rel="stylesheet" href="../assets/css/userdash.css">
 </head>
 <body>
 
-<?php include 'includes/navuser.php'; ?>
+<?php include '../includes/navbar.php'; ?>
 
 <div class="container">
     <div style="margin-bottom: 30px;">
@@ -34,10 +34,8 @@ if (!isset($_SESSION['id_pelanggan'])) {
             <h3><?php echo $row['nama_produk']; ?></h3>
             <p><?php echo $row['deskripsi']; ?></p>
             <div class="price">Rp <?php echo number_format($row['harga']); ?></div>
-            <<!-- Tombol tambah ke keranjang → ke tambah_keranjang.php -->
-<a href="tambahkeranjang.php?id=<?php echo $row['id_produk']; ?>" class="btn">
-    Tambah ke Keranjang
-</a>
+            <!-- Tombol tambah ke keranjang -->
+            <a href="produk.php" class="btn">Lihat Produk</a>
         </div>
         <?php endwhile; ?>
     </div>

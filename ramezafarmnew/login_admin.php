@@ -11,7 +11,7 @@ if (isset($_POST['login'])) {
 
     if ($cocok == 1) {
         $_SESSION['admin'] = mysqli_fetch_assoc($ambil);
-        echo "<script>alert('Login Berhasil, Halo Admin!'); window.location='admin_dashboard.php';</script>";
+        echo "<script>alert('Login Berhasil, Halo Admin!'); window.location='admin/admin_dashboard.php';</script>";
     } else {
         echo "<script>alert('Username atau Password Salah!'); window.location='login_admin.php';</script>";
     }

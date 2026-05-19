@@ -11,20 +11,20 @@
     <div class="footer-col">
       <div class="footer-col-title">Navigasi</div>
       <ul>
-        <li><a href="beranda.php">Beranda</a></li>
-        <li><a href="tentang.php">Tentang Kami</a></li>
-        <li><a href="produk.php">Produk</a></li>
-        <li><a href="beranda.php#kontak">Kontak</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>beranda.php">Beranda</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/tentang.php">Tentang Kami</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/produk.php">Produk</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>beranda.php#kontak">Kontak</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
       <div class="footer-col-title">Produk &amp; Layanan</div>
       <ul>
-        <li><a href="produk.php?kategori=telur">Telur Ayam Segar</a></li>
-        <li><a href="produk.php?kategori=bibit">Bibit Unggas</a></li>
-        <li><a href="produk.php?kategori=pakan">Pakan &amp; Pulet</a></li>
-        <li><a href="produk.php?kategori=obat">Vitamin &amp; Obat</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=telur">Telur Ayam Segar</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=bibit">Bibit Unggas</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=pakan">Pakan &amp; Pulet</a></li>
+        <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=obat">Vitamin &amp; Obat</a></li>
       </ul>
     </div>
 
@@ -54,10 +54,10 @@
 $currentPage = basename($_SERVER['PHP_SELF']);
 $scriptMap = [
   
-  'beranda.php' => 'assets/js/beranda.js',
-  'tentang.php' => 'assets/js/tentang.js',
-  'detailproduk.php' => 'assets/js/beranda.js',
-  'produk.php' => 'assets/js/cart.js',
+  'beranda.php' => ($rootPath ?? '') . 'assets/js/beranda.js',
+  'tentang.php' => ($rootPath ?? '') . 'assets/js/tentang.js',
+  'detailproduk.php' => ($rootPath ?? '') . 'assets/js/beranda.js',
+  'produk.php' => ($rootPath ?? '') . 'assets/js/cart.js',
 ];
 $pageScript = $scriptMap[$currentPage] ?? null;
 ?>

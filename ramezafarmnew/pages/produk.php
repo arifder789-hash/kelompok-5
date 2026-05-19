@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/config/db.php';
-require_once __DIR__ . '/includes/cart_helper.php';
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/cart_helper.php';
 
 // Filter kategori
 $kategori = $_GET['kategori'] ?? '';
@@ -14,16 +14,26 @@ if ($kategori) {
     $params[] = $kategori;
 }
 if ($search) {
-    $where[]  = '(p.nama LIKE ? OR p.deskripsi LIKE ?)';
+    $where[]  = '(p.nama_produk LIKE ? OR p.deskripsi LIKE ?)';
     $params[] = "%$search%";
     $params[] = "%$search%";
 }
+$where[] = 'p.aktif = 1';
+// 1. Mulai dengan query dasar
+$sql = "SELECT * FROM produk p";
 
-$sql     = "SELECT * FROM produk p WHERE " . implode(' AND ', $where) . " ORDER BY p.kategori, p.nama";
-$stmt    = $pdo->prepare($sql);
+// 2. Cek apakah ada filter di dalam array $where
+if (!empty($where)) {
+    $sql .= " WHERE " . implode(' AND ', $where);
+}
+
+// 3. Tambahkan ORDER BY di akhir query (pastikan ada spasi di awalnya)
+$sql .= " ORDER BY p.kategori, p.nama_produk";
+
+// 4. Lanjutkan proses PDO seperti biasa
+$stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $produkList = $stmt->fetchAll();
-
 $cartCount = cartCount();
 
 $categories = [
@@ -34,8 +44,8 @@ $categories = [
     'obat'   => '💊 Vitamin & Obat',
 ];
 ?>
-<?php include 'includes/header.php'; ?>
-<?php include 'includes/navbar.php'; ?>
+<?php include '../includes/header.php'; ?>
+<?php include '../includes/navbar.php'; ?>
 
 <!-- PAGE HEADER -->
 <div class="page-header">
@@ -62,7 +72,7 @@ $categories = [
   <!-- Category Tabs -->
   <div class="cat-tabs">
     <?php foreach ($categories as $key => $label): ?>
-      <a href="produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
+      <a href="../pages/produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
          class="cat-tab <?= $kategori === $key ? 'active' : '' ?>">
         <?= $label ?>
       </a>
@@ -81,17 +91,20 @@ $categories = [
       <div class="empty-icon">📦</div>
       <h3>Produk tidak ditemukan</h3>
       <p>Coba kata kunci lain atau pilih kategori yang berbeda.</p>
-      <a href="produk.php" class="btn-primary">Lihat Semua Produk</a>
+      <a href="../pages/produk.php" class="btn-primary">Lihat Semua Produk</a>
     </div>
   <?php else: ?>
     <div class="product-grid">
       <?php foreach ($produkList as $p): ?>
-        <div class="product-card" data-id="<?= $p['id'] ?>">
+        <div class="product-card" data-id="<?= $p['id_produk'] ?>">
 
           <!-- Gambar -->
           <div class="product-img-wrap">
             <?php
-              $imgSrc = $p['gambar'] ?: 'assets/img/no-image.png';
+              $imgSrc = $p['gambar'] ?: '../assets/img/no-image.png';
+              if (str_starts_with($imgSrc, 'assets/')) {
+                $imgSrc = '../' . $imgSrc;
+              }
               $catBadge = [
                 'telur' => ['label' => '🥚 Unggulan', 'class' => 'badge-amber'],
                 'bibit' => ['label' => '🐣 Bibit',    'class' => 'badge-green'],
@@ -101,8 +114,8 @@ $categories = [
               $badge = $catBadge[$p['kategori']] ?? ['label' => $p['kategori'], 'class' => 'badge-blue'];
             ?>
             <img src="<?= htmlspecialchars($imgSrc) ?>"
-                 alt="<?= htmlspecialchars($p['nama']) ?>"
-                 onerror="this.src='https://placehold.co/400x280/e8eefb/2d5be3?text=<?= urlencode($p['nama']) ?>'"/>
+                 alt="<?= htmlspecialchars($p['nama_produk']) ?>"
+                 onerror="this.src='https://placehold.co/400x280/e8eefb/2d5be3?text=<?= urlencode($p['nama_produk']) ?>'"/>
             <span class="product-badge <?= $badge['class'] ?>"><?= $badge['label'] ?></span>
             <?php if ($p['stok'] <= 5 && $p['stok'] > 0): ?>
               <span class="stok-badge">Stok terbatas!</span>
@@ -113,8 +126,8 @@ $categories = [
 
           <!-- Info -->
           <div class="product-body">
-            <div class="product-kode"><?= htmlspecialchars($p['kode']) ?></div>
-            <h3 class="product-name"><?= htmlspecialchars($p['nama']) ?></h3>
+            <div class="product-kode"><?= htmlspecialchars($p['kode_produk']) ?></div>
+            <h3 class="product-name"><?= htmlspecialchars($p['nama_produk']) ?></h3>
             <p class="product-desc"><?= htmlspecialchars(substr($p['deskripsi'], 0, 90)) ?>…</p>
 
             <div class="product-footer">
@@ -132,8 +145,8 @@ $categories = [
                     <button class="qty-btn plus" aria-label="Tambah">+</button>
                   </div>
                   <button class="add-to-cart-btn"
-                          data-id="<?= $p['id'] ?>"
-                          data-nama="<?= htmlspecialchars($p['nama']) ?>"
+                          data-id="<?= $p['id_produk'] ?>"
+                          data-nama="<?= htmlspecialchars($p['nama_produk']) ?>"
                           data-harga="<?= $p['harga'] ?>"
                           data-satuan="<?= htmlspecialchars($p['satuan']) ?>">
                     🛒 Tambah
@@ -168,7 +181,7 @@ $categories = [
     <div class="cart-sidebar-total">
       Total: <strong id="sidebar-total">Rp 0</strong>
     </div>
-    <a href="keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
+    <a href="../pages/keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
       Lihat Keranjang →
     </a>
   </div>
@@ -176,4 +189,4 @@ $categories = [
 <div id="cart-overlay" class="cart-overlay"></div>
 
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

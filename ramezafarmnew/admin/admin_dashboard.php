@@ -1,12 +1,12 @@
 <?php
 session_start();
-include 'config/koneksi.php';
+include __DIR__ . '/../config/koneksi.php';
 date_default_timezone_set('Asia/Jakarta');
 
 // 1. PROTEKSI HALAMAN
 // Jika tidak ada session admin, tendang ke halaman login
 if (!isset($_SESSION['admin'])) {
-    echo "<script>alert('Silakan login terlebih dahulu!'); window.location='login_admin.php';</script>";
+    echo "<script>alert('Silakan login terlebih dahulu!'); window.location='../login_admin.php';</script>";
     exit();
 }
 
@@ -15,7 +15,7 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'konfirmasi') {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     
     // Update status pesanan menjadi Dikonfirmasi
-    $update = mysqli_query($conn, "UPDATE pesanan SET status = 'Dikonfirmasi' WHERE id_pesanan = '$id'");
+    $update = mysqli_query($conn, "UPDATE pesanan SET status = 'dikonfirmasi' WHERE id_pesanan = '$id'");
     
     if ($update) {
         echo "<script>alert('Pesanan #$id Berhasil Dikonfirmasi!'); window.location='admin_dashboard.php';</script>";
@@ -108,7 +108,10 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'konfirmasi') {
 </head>
 <body>
 
-    <?php include 'includes/navbar_admin.php'; ?>
+    <nav style="background:#0056b3;color:white;padding:16px 50px;font-weight:700;">
+        Rameza Admin
+        <a href="../login_admin.php" style="color:white;float:right;text-decoration:none;">Logout</a>
+    </nav>
 
     <div class="container">
         <div class="card">

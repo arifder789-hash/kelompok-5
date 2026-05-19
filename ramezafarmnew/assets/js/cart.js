@@ -9,7 +9,7 @@
 // ── Utility: AJAX ke cart_action.php ────────
 async function cartAction(action, payload = {}) {
   try {
-    const res = await fetch('ajax/cart_action.php', {
+    const res = await fetch('../ajax/cart_action.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, ...payload }),
@@ -23,6 +23,11 @@ async function cartAction(action, payload = {}) {
 // ── Utility: Format Rupiah ───────────────────
 function rupiah(num) {
   return 'Rp ' + Number(num).toLocaleString('id-ID');
+}
+
+function imagePath(path) {
+  if (!path) return '../assets/img/no-image.png';
+  return path.startsWith('assets/') ? `../${path}` : path;
 }
 
 // ── Toast notification ───────────────────────
@@ -72,7 +77,7 @@ async function refreshSidebar() {
 
   listEl.innerHTML = data.items.map(item => `
     <div class="sidebar-item">
-      <img src="${item.gambar || 'assets/img/no-image.png'}"
+      <img src="${imagePath(item.gambar)}"
            alt="${item.nama}"
            onerror="this.src='https://placehold.co/48x48/e8eefb/2d5be3?text=📦'"/>
       <div class="sidebar-item-info">
