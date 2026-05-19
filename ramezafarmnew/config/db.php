@@ -5,7 +5,7 @@
 // ============================================
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'rameza_farm');
+define('DB_NAME', 'rameza_database'); // ← ganti jika perlu
 define('DB_USER', 'root');        // ← ganti jika perlu
 define('DB_PASS', '');            // ← ganti jika perlu
 define('DB_CHAR', 'utf8mb4');

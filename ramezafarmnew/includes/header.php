@@ -16,6 +16,11 @@ $pageMap = [
     'description' => 'Produk dan layanan Rameza Egg Farm.',
     'css' => 'assets/css/detailproduk.css',
   ],
+  'produk.php' => [
+    'title' => 'Produk - Rameza Egg Farm',
+    'description' => 'Katalog produk Rameza Egg Farm.',
+    'css' => 'assets/css/shop.css',
+  ],
 ];
 
 $pageConfig = $pageMap[$currentPage] ?? [

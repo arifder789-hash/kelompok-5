@@ -8,7 +8,7 @@ function nav_active(string $page, string $currentPage): string
 ?>
 <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
   <a href="beranda.php" class="navbar-brand">
-    <span class="brand-icon">🐔</span>
+  <img src="assets/img/logo_ayam.png" class="brand-logo">
     Rameza Farm
   </a>
 
@@ -18,8 +18,6 @@ function nav_active(string $page, string $currentPage): string
     <li><a href="produk.php" class="<?= nav_active('produk.php', $currentPage) ?>">Produk</a></li>
     <li><a href="beranda.php#kontak">Kontak</a></li>
   </ul>
-
-  <a href="beranda.php#kontak" class="navbar-cta">Hubungi Kami</a>
 
   <button class="navbar-hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>

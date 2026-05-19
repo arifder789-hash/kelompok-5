@@ -13,7 +13,7 @@
       <ul>
         <li><a href="beranda.php">Beranda</a></li>
         <li><a href="tentang.php">Tentang Kami</a></li>
-        <li><a href="detailproduk.php">Produk</a></li>
+        <li><a href="produk.php">Produk</a></li>
         <li><a href="beranda.php#kontak">Kontak</a></li>
       </ul>
     </div>
@@ -21,10 +21,10 @@
     <div class="footer-col">
       <div class="footer-col-title">Produk &amp; Layanan</div>
       <ul>
-        <li><a href="detailproduk.php">Telur Ayam Segar</a></li>
-        <li><a href="detailproduk.php">Bibit Unggas</a></li>
-        <li><a href="detailproduk.php">Pakan &amp; Pulet</a></li>
-        <li><a href="detailproduk.php">Vitamin &amp; Obat</a></li>
+        <li><a href="produk.php?kategori=telur">Telur Ayam Segar</a></li>
+        <li><a href="produk.php?kategori=bibit">Bibit Unggas</a></li>
+        <li><a href="produk.php?kategori=pakan">Pakan &amp; Pulet</a></li>
+        <li><a href="produk.php?kategori=obat">Vitamin &amp; Obat</a></li>
       </ul>
     </div>
 
@@ -53,9 +53,11 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
 $scriptMap = [
+  
   'beranda.php' => 'assets/js/beranda.js',
   'tentang.php' => 'assets/js/tentang.js',
   'detailproduk.php' => 'assets/js/beranda.js',
+  'produk.php' => 'assets/js/cart.js',
 ];
 $pageScript = $scriptMap[$currentPage] ?? null;
 ?>
