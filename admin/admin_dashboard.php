@@ -1,12 +1,20 @@
 <?php
 session_start();
+<<<<<<< HEAD
 include __DIR__ . '/../config/koneksi.php';
+=======
+include 'config/koneksi.php';
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 date_default_timezone_set('Asia/Jakarta');
 
 // 1. PROTEKSI HALAMAN
 // Jika tidak ada session admin, tendang ke halaman login
 if (!isset($_SESSION['admin'])) {
+<<<<<<< HEAD
     echo "<script>alert('Silakan login terlebih dahulu!'); window.location='../login_admin.php';</script>";
+=======
+    echo "<script>alert('Silakan login terlebih dahulu!'); window.location='login_admin.php';</script>";
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     exit();
 }
 
@@ -15,7 +23,11 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'konfirmasi') {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
     
     // Update status pesanan menjadi Dikonfirmasi
+<<<<<<< HEAD
     $update = mysqli_query($conn, "UPDATE pesanan SET status = 'dikonfirmasi' WHERE id_pesanan = '$id'");
+=======
+    $update = mysqli_query($conn, "UPDATE pesanan SET status = 'Dikonfirmasi' WHERE id_pesanan = '$id'");
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     
     if ($update) {
         echo "<script>alert('Pesanan #$id Berhasil Dikonfirmasi!'); window.location='admin_dashboard.php';</script>";
@@ -108,10 +120,14 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'konfirmasi') {
 </head>
 <body>
 
+<<<<<<< HEAD
     <nav style="background:#0056b3;color:white;padding:16px 50px;font-weight:700;">
         Rameza Admin
         <a href="../login_admin.php" style="color:white;float:right;text-decoration:none;">Logout</a>
     </nav>
+=======
+    <?php include 'includes/navbar_admin.php'; ?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     <div class="container">
         <div class="card">
@@ -177,4 +193,8 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'konfirmasi') {
     </div>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

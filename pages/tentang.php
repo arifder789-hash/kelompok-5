@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 
@@ -8,6 +9,17 @@
   <div class="t-hero__inner section-container">
 
     <!-- Kiri: teks -->
+=======
+<?php 
+// 1. Memanggil header dan navbar dengan keluar dari folder 'pages' terlebih dahulu
+include '../includes/header.php'; 
+include '../includes/navbar.php'; 
+?>
+
+<div class="t-hero">
+  <div class="t-hero__inner container">
+
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <div class="t-hero__text reveal">
 
       <div class="t-hero__tag">
@@ -24,7 +36,10 @@
         Rameza Farm adalah peternakan ayam petelur modern yang berdiri sejak 2015 di Bondowoso, Jawa Timur. Berawal dari sebuah kandang kecil dengan tekad besar, kami tumbuh menjadi salah satu pemasok telur segar terpercaya di Jawa Timur — menjaga kualitas dari kandang hingga ke tangan konsumen.
       </p>
 
+<<<<<<< HEAD
       <!-- Feature Pills (menggantikan stats) -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       <div class="t-hero__pills reveal reveal-delay-1">
 
         <div class="t-hero__pill">
@@ -62,16 +77,26 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Kanan: foto -->
     <div class="t-hero__visual reveal reveal-delay-2">
       <div class="t-hero__img-wrap">
         <img
           src="assets/img/foto-kandang3.jpeg"
+=======
+    <div class="t-hero__visual reveal reveal-delay-2">
+      <div class="t-hero__img-wrap">
+        <img
+          src="../assets/img/foto-kandang3.jpeg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
           alt="Kandang Rameza Farm"
           onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=900&q=80'"
         />
 
+<<<<<<< HEAD
         <!-- Badge utama -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
         <div class="t-hero__img-badge">
           <span class="t-hero__img-badge-icon">🥚</span>
           <div>
@@ -80,7 +105,10 @@
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Badge tambahan (sudut kiri atas) -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
         <div class="t-hero__img-badge t-hero__img-badge--tl">
           <span class="t-hero__img-badge-icon">📍</span>
           <div>
@@ -96,11 +124,16 @@
 </div>
 
 
+<<<<<<< HEAD
 <!-- ══════════════════════════════
      SUB-NAV
 ═══════════════════════════════ -->
 <div class="t-subnav-wrap" id="tentang-subnav">
   <nav class="t-subnav section-container">
+=======
+<div class="t-subnav-wrap" id="tentang-subnav">
+  <nav class="t-subnav container">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <a href="#kisah-kami"  class="t-subnav__link active">Kisah Kami</a>
     <span class="t-subnav__dot"></span>
     <a href="#komitmen"    class="t-subnav__link">Visi &amp; Misi</a>
@@ -112,18 +145,27 @@
 </div>
 
 
+<<<<<<< HEAD
 <!-- ══════════════════════════════
      KISAH KAMI
 ═══════════════════════════════ -->
 <section class="t-kisah" id="kisah-kami">
   <div class="section-container t-kisah__grid">
+=======
+<section class="t-kisah" id="kisah-kami">
+  <div class="container t-kisah__grid">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     <div class="t-kisah__body reveal">
       <div class="t-label-bar"></div>
       <p class="t-section-eyebrow">Kisah Kami</p>
       <h2 class="t-section-heading">
         Dimulai dari Peternakan Kecil,<br/>
+<<<<<<< HEAD
         <span class="t-blue">Tumbuh Dengan Konsistensi</span>
+=======
+        <span class="t-blue">Tumbuh With Konsistensi</span>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       </h2>
 
       <p class="t-kisah__text">
@@ -134,7 +176,10 @@
         Dengan sistem pemantauan harian dan distribusi cepat, kami memastikan telur sampai ke tangan konsumen dalam kondisi terbaik — segar, bersih, dan bernutrisi. Berawal dari kandang kecil di Bondowoso, kini Rameza Farm tumbuh menjadi mitra terpercaya bagi keluarga, pedagang, dan industri kuliner di Jawa Timur.
       </p>
 
+<<<<<<< HEAD
       <!-- Highlight points -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       <ul class="t-kisah__highlights">
         <li class="t-kisah__hl-item">
           <span class="t-kisah__hl-icon">✔</span>
@@ -162,14 +207,22 @@
     <div class="t-kisah__visual reveal reveal-delay-2">
       <div class="t-kisah__img-main">
         <img
+<<<<<<< HEAD
           src="assets/img/foto-kandang.jpeg"
+=======
+          src="../assets/img/foto-kandang.jpeg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
           alt="Kandang Rameza Farm"
           onerror="this.src='https://images.unsplash.com/photo-1641468981503-a1ba7f1e5b7a?w=800&q=80'"
         />
       </div>
       <div class="t-kisah__img-thumb">
         <img
+<<<<<<< HEAD
           src="assets/img/gambar-telur.jpg"
+=======
+          src="../assets/img/gambar-telur.jpg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
           alt="Telur segar Rameza Farm"
           onerror="this.src='https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&q=80'"
         />
@@ -184,11 +237,16 @@
 </section>
 
 
+<<<<<<< HEAD
 <!-- ══════════════════════════════
      VISI & MISI
 ═══════════════════════════════ -->
 <section class="t-visi" id="komitmen">
   <div class="section-container">
+=======
+<section class="t-visi" id="komitmen">
+  <div class="container">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     <div class="t-visi__header reveal">
       <p class="t-section-eyebrow t-section-eyebrow--center">Masa Depan Kami</p>
@@ -197,7 +255,10 @@
       </h2>
     </div>
 
+<<<<<<< HEAD
     <!-- Visi card besar -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <div class="t-visi__vision-card reveal">
       <div class="t-visi__quote-mark">"</div>
       <p class="t-visi__vision-eyebrow">Visi Kami</p>
@@ -206,7 +267,10 @@
       </h3>
     </div>
 
+<<<<<<< HEAD
     <!-- Misi cards -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <div class="t-visi__grid">
 
       <div class="t-visi__card reveal">
@@ -250,11 +314,16 @@
 </section>
 
 
+<<<<<<< HEAD
 <!-- ══════════════════════════════
      KEUNGGULAN KAMI  ← SECTION BARU
 ═══════════════════════════════ -->
 <section class="t-unggulan" id="keunggulan">
   <div class="section-container">
+=======
+<section class="t-unggulan" id="keunggulan">
+  <div class="container">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     <div class="t-unggulan__header reveal">
       <div class="t-label-bar"></div>
@@ -270,11 +339,18 @@
 
     <div class="t-unggulan__grid">
 
+<<<<<<< HEAD
       <!-- Card 1 -->
       <div class="t-unggulan__card reveal">
         <div class="t-unggulan__card-img">
           <img
             src="assets/img/foto-kandang.jpeg"
+=======
+      <div class="t-unggulan__card reveal">
+        <div class="t-unggulan__card-img">
+          <img
+            src="../assets/img/foto-kandang.jpeg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             alt="Kandang bersih Rameza Farm"
             onerror="this.src='https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600&q=80'"
           />
@@ -291,11 +367,18 @@
         </div>
       </div>
 
+<<<<<<< HEAD
       <!-- Card 2 -->
       <div class="t-unggulan__card reveal reveal-delay-1">
         <div class="t-unggulan__card-img">
           <img
             src="assets/img/gambar-telur.jpg"
+=======
+      <div class="t-unggulan__card reveal reveal-delay-1">
+        <div class="t-unggulan__card-img">
+          <img
+            src="../assets/img/gambar-telur.jpg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             alt="Telur segar berkualitas"
             onerror="this.src='https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=600&q=80'"
           />
@@ -312,11 +395,18 @@
         </div>
       </div>
 
+<<<<<<< HEAD
       <!-- Card 3 -->
       <div class="t-unggulan__card reveal reveal-delay-2">
         <div class="t-unggulan__card-img">
           <img
             src="assets/img/foto-kandang3.jpeg"
+=======
+      <div class="t-unggulan__card reveal reveal-delay-2">
+        <div class="t-unggulan__card-img">
+          <img
+            src="../assets/img/foto-kandang3.jpeg"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             alt="Sistem pakan alami Rameza Farm"
             onerror="this.src='https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=600&q=80'"
           />
@@ -335,7 +425,10 @@
 
     </div>
 
+<<<<<<< HEAD
     <!-- Mini-trust bar -->
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <div class="t-unggulan__trust reveal">
       <div class="t-unggulan__trust-item">
         <span class="t-unggulan__trust-icon">📋</span>
@@ -362,11 +455,16 @@
 </section>
 
 
+<<<<<<< HEAD
 <!-- ══════════════════════════════
      PERJALANAN KAMI
 ═══════════════════════════════ -->
 <section class="t-perjalanan" id="perjalanan">
   <div class="section-container">
+=======
+<section class="t-perjalanan" id="perjalanan">
+  <div class="container">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     <div class="t-perjalanan__header reveal">
       <div class="t-label-bar"></div>
@@ -469,7 +567,11 @@
   </div>
 </section>
 
+<<<<<<< HEAD
 
 <?php include '../includes/footer.php'; ?>
 </body>
 </html>
+=======
+<?php include '../includes/footer.php'; ?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

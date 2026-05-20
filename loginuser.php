@@ -3,6 +3,7 @@ session_start();
 include 'config/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<<<<<<< HEAD
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
@@ -10,15 +11,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $result = $stmt->get_result();
+=======
+    $username = trim(mysqli_real_escape_string($conn, $_POST['username']));
+    $password = trim($_POST['password']);
+
+    $sql    = "SELECT * FROM project_rameza WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password_pelanggan'])) {
+<<<<<<< HEAD
             $_SESSION['id_pelanggan'] = (int) $row['id_pelanggan'];
             $_SESSION['username']     = $row['username'];
             $_SESSION['nama_user']    = $row['username'];
             
             header("Location: pages/produk.php");
+=======
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['username']        = $row['username'];
+            
+            header("Location: ../dashboard.php");
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             exit;
         } else {
             $error = "Password salah!";
@@ -93,10 +108,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
+<<<<<<< HEAD
         <a href="admin/admin_dashboard.php" class="admin-dashboard-link">
             Masuk Dashboard
         </a>
         
+=======
+        <button type="submit" class="btn-login">
+            <i class="fas fa-right-to-bracket" style="margin-right:8px;"></i>
+            Masuk
+        </button>
+
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     </form>
 
     <div class="footer-link">
@@ -115,4 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

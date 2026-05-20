@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * KONEKSI DATABASE
  * File: config/koneksi.php
@@ -53,3 +54,16 @@ function requireLogin() {
         exit();
     }
 }
+=======
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "rameza_database";
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn){
+    die("Koneksi ke database gagal: ".mysqli_connect_error());
+}
+?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

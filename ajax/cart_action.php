@@ -30,7 +30,11 @@ switch ($action) {
             exit(json_encode(['ok' => false, 'msg' => 'ID produk tidak valid']));
         }
 
+<<<<<<< HEAD
         $stmt = $pdo->prepare("SELECT * FROM produk WHERE id_produk = ? AND aktif = 1");
+=======
+        $stmt = $pdo->prepare("SELECT * FROM produk WHERE id = ? AND aktif = 1");
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
         $stmt->execute([$produkId]);
         $produk = $stmt->fetch();
 

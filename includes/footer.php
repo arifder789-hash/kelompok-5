@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+<?php
+// Deteksi otomatis jalur folder untuk link dan javascript
+$is_pages = strpos($_SERVER['PHP_SELF'], '/pages/') !== false;
+$asset_prefix = $is_pages ? '../' : '';
+$link_prefix  = $is_pages ? '' : 'pages/';
+?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 <footer>
   <div class="footer-grid">
     <div>
@@ -11,21 +20,35 @@
     <div class="footer-col">
       <div class="footer-col-title">Navigasi</div>
       <ul>
+<<<<<<< HEAD
         <li><a href="<?= $rootPath ?? '' ?>beranda.php">Beranda</a></li>
         <li><a href="<?= $rootPath ?? '' ?>pages/tentang.php">Tentang Kami</a></li>
         <li><a href="<?= $rootPath ?? '' ?>pages/produk.php">Produk</a></li>
         <li><a href="<?= $rootPath ?? '' ?>beranda.php#kontak">Kontak</a></li>
         <li><a href="<?= $rootPath ?? '' ?>loginuser.php">Login User</a></li>
+=======
+        <li><a href="<?= $link_prefix ?>beranda.php">Beranda</a></li>
+        <li><a href="<?= $link_prefix ?>tentang.php">Tentang Kami</a></li>
+        <li><a href="<?= $link_prefix ?>produk.php">Produk</a></li>
+        <li><a href="<?= $link_prefix ?>beranda.php#kontak">Kontak</a></li>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       </ul>
     </div>
 
     <div class="footer-col">
       <div class="footer-col-title">Produk &amp; Layanan</div>
       <ul>
+<<<<<<< HEAD
         <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=telur">Telur Ayam Segar</a></li>
         <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=bibit">Bibit Unggas</a></li>
         <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=pakan">Pakan &amp; Pulet</a></li>
         <li><a href="<?= $rootPath ?? '' ?>pages/produk.php?kategori=obat">Vitamin &amp; Obat</a></li>
+=======
+        <li><a href="<?= $link_prefix ?>produk.php?kategori=telur">Telur Ayam Segar</a></li>
+        <li><a href="<?= $link_prefix ?>produk.php?kategori=bibit">Bibit Unggas</a></li>
+        <li><a href="<?= $link_prefix ?>produk.php?kategori=pakan">Pakan &amp; Pulet</a></li>
+        <li><a href="<?= $link_prefix ?>produk.php?kategori=obat">Vitamin &amp; Obat</a></li>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       </ul>
     </div>
 
@@ -54,6 +77,7 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
 $scriptMap = [
+<<<<<<< HEAD
   
   'beranda.php' => ($rootPath ?? '') . 'assets/js/beranda.js',
   'tentang.php' => ($rootPath ?? '') . 'assets/js/tentang.js',
@@ -68,3 +92,18 @@ $pageScript = $scriptMap[$currentPage] ?? null;
 <?php endif; ?>
 </body>
 </html>
+=======
+  'beranda.php' => 'assets/js/beranda.js',
+  'tentang.php' => 'assets/js/tentang.js',
+  'detailproduk.php' => 'assets/js/beranda.js',
+  'produk.php' => 'assets/js/cart.js',
+];
+$pageScript = $scriptMap[$currentPage] ?? null;
+?>
+<script src="<?= $asset_prefix ?>assets/js/navbar.js"></script>
+<?php if ($pageScript): ?>
+  <script src="<?= $asset_prefix . htmlspecialchars($pageScript, ENT_QUOTES, 'UTF-8') ?>"></script>
+<?php endif; ?>
+</body>
+</html>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

@@ -82,6 +82,17 @@ a    { text-decoration:none; color:inherit; }
   padding: 8px 16px; border-radius: var(--radius-full);
   transition: background 0.2s, color 0.2s;
 }
+<<<<<<< HEAD
+=======
+.navbar-cta {
+  background: var(--white); color: var(--blue-dark);
+  padding: 9px 24px; border-radius: var(--radius-full);
+  font-size: 14px; font-weight: 700;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.navbar-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,255,255,0.3); }
+
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 .navbar-hamburger {
   display: none; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; padding: 4px;

@@ -9,7 +9,11 @@
 // ── Utility: AJAX ke cart_action.php ────────
 async function cartAction(action, payload = {}) {
   try {
+<<<<<<< HEAD
     const res = await fetch('../ajax/cart_action.php', {
+=======
+    const res = await fetch('ajax/cart_action.php', {
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action, ...payload }),
@@ -25,11 +29,14 @@ function rupiah(num) {
   return 'Rp ' + Number(num).toLocaleString('id-ID');
 }
 
+<<<<<<< HEAD
 function imagePath(path) {
   if (!path) return '../assets/img/no-image.png';
   return path.startsWith('assets/') ? `../${path}` : path;
 }
 
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 // ── Toast notification ───────────────────────
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
@@ -77,7 +84,11 @@ async function refreshSidebar() {
 
   listEl.innerHTML = data.items.map(item => `
     <div class="sidebar-item">
+<<<<<<< HEAD
       <img src="${imagePath(item.gambar)}"
+=======
+      <img src="${item.gambar || 'assets/img/no-image.png'}"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
            alt="${item.nama}"
            onerror="this.src='https://placehold.co/48x48/e8eefb/2d5be3?text=📦'"/>
       <div class="sidebar-item-info">

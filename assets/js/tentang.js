@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+<<<<<<< HEAD
   /* ── 1. NAVBAR SCROLL EFFECT ── */
   const navbar = document.getElementById('navbar');
   const onScroll = () => {
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
   /* ── 3. SCROLL REVEAL ── */
   const revealEls = document.querySelectorAll('.reveal');
@@ -147,12 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── 8. SMOOTH ACTIVE NAV LINK ON SCROLL ── */
   const sections  = document.querySelectorAll('section[id]');
+<<<<<<< HEAD
   const navLinks  = document.querySelectorAll('.navbar-links a');
+=======
+  const navLinks  = document.querySelectorAll('.t-subnav__link');
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
   const navObs    = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         navLinks.forEach(l => l.classList.remove('active'));
+<<<<<<< HEAD
         const match = document.querySelector(`.navbar-links a[href="#${e.target.id}"]`);
+=======
+        const match = document.querySelector(`.t-subnav__link[href="#${e.target.id}"]`);
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
         if (match) match.classList.add('active');
       }
     });

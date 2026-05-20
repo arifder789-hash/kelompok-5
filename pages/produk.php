@@ -1,6 +1,11 @@
 <?php
+<<<<<<< HEAD
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../includes/cart_helper.php';
+=======
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/cart_helper.php';
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
 // Filter kategori
 $kategori = $_GET['kategori'] ?? '';
@@ -14,6 +19,7 @@ if ($kategori) {
     $params[] = $kategori;
 }
 if ($search) {
+<<<<<<< HEAD
     $where[]  = '(p.nama_produk LIKE ? OR p.deskripsi LIKE ?)';
     $params[] = "%$search%";
     $params[] = "%$search%";
@@ -34,6 +40,18 @@ $sql .= " ORDER BY p.kategori, p.nama_produk";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $produkList = $stmt->fetchAll();
+=======
+    $where[]  = '(p.nama LIKE ? OR p.deskripsi LIKE ?)';
+    $params[] = "%$search%";
+    $params[] = "%$search%";
+}
+
+$sql     = "SELECT * FROM produk p WHERE " . implode(' AND ', $where) . " ORDER BY p.kategori, p.nama";
+$stmt    = $pdo->prepare($sql);
+$stmt->execute($params);
+$produkList = $stmt->fetchAll();
+
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 $cartCount = cartCount();
 
 $categories = [
@@ -44,8 +62,13 @@ $categories = [
     'obat'   => '💊 Vitamin & Obat',
 ];
 ?>
+<<<<<<< HEAD
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
+=======
+<?php include 'includes/header.php'; ?>
+<?php include 'includes/navbar.php'; ?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
 <!-- PAGE HEADER -->
 <div class="page-header">
@@ -72,7 +95,11 @@ $categories = [
   <!-- Category Tabs -->
   <div class="cat-tabs">
     <?php foreach ($categories as $key => $label): ?>
+<<<<<<< HEAD
       <a href="../pages/produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
+=======
+      <a href="produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
          class="cat-tab <?= $kategori === $key ? 'active' : '' ?>">
         <?= $label ?>
       </a>
@@ -91,20 +118,32 @@ $categories = [
       <div class="empty-icon">📦</div>
       <h3>Produk tidak ditemukan</h3>
       <p>Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+<<<<<<< HEAD
       <a href="../pages/produk.php" class="btn-primary">Lihat Semua Produk</a>
+=======
+      <a href="produk.php" class="btn-primary">Lihat Semua Produk</a>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     </div>
   <?php else: ?>
     <div class="product-grid">
       <?php foreach ($produkList as $p): ?>
+<<<<<<< HEAD
         <div class="product-card" data-id="<?= $p['id_produk'] ?>">
+=======
+        <div class="product-card" data-id="<?= $p['id'] ?>">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
           <!-- Gambar -->
           <div class="product-img-wrap">
             <?php
+<<<<<<< HEAD
               $imgSrc = $p['gambar'] ?: '../assets/img/no-image.png';
               if (str_starts_with($imgSrc, 'assets/')) {
                 $imgSrc = '../' . $imgSrc;
               }
+=======
+              $imgSrc = $p['gambar'] ?: 'assets/img/no-image.png';
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
               $catBadge = [
                 'telur' => ['label' => '🥚 Unggulan', 'class' => 'badge-amber'],
                 'bibit' => ['label' => '🐣 Bibit',    'class' => 'badge-green'],
@@ -114,8 +153,13 @@ $categories = [
               $badge = $catBadge[$p['kategori']] ?? ['label' => $p['kategori'], 'class' => 'badge-blue'];
             ?>
             <img src="<?= htmlspecialchars($imgSrc) ?>"
+<<<<<<< HEAD
                  alt="<?= htmlspecialchars($p['nama_produk']) ?>"
                  onerror="this.src='https://placehold.co/400x280/e8eefb/2d5be3?text=<?= urlencode($p['nama_produk']) ?>'"/>
+=======
+                 alt="<?= htmlspecialchars($p['nama']) ?>"
+                 onerror="this.src='https://placehold.co/400x280/e8eefb/2d5be3?text=<?= urlencode($p['nama']) ?>'"/>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             <span class="product-badge <?= $badge['class'] ?>"><?= $badge['label'] ?></span>
             <?php if ($p['stok'] <= 5 && $p['stok'] > 0): ?>
               <span class="stok-badge">Stok terbatas!</span>
@@ -126,8 +170,13 @@ $categories = [
 
           <!-- Info -->
           <div class="product-body">
+<<<<<<< HEAD
             <div class="product-kode"><?= htmlspecialchars($p['kode_produk']) ?></div>
             <h3 class="product-name"><?= htmlspecialchars($p['nama_produk']) ?></h3>
+=======
+            <div class="product-kode"><?= htmlspecialchars($p['kode']) ?></div>
+            <h3 class="product-name"><?= htmlspecialchars($p['nama']) ?></h3>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
             <p class="product-desc"><?= htmlspecialchars(substr($p['deskripsi'], 0, 90)) ?>…</p>
 
             <div class="product-footer">
@@ -145,8 +194,13 @@ $categories = [
                     <button class="qty-btn plus" aria-label="Tambah">+</button>
                   </div>
                   <button class="add-to-cart-btn"
+<<<<<<< HEAD
                           data-id="<?= $p['id_produk'] ?>"
                           data-nama="<?= htmlspecialchars($p['nama_produk']) ?>"
+=======
+                          data-id="<?= $p['id'] ?>"
+                          data-nama="<?= htmlspecialchars($p['nama']) ?>"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
                           data-harga="<?= $p['harga'] ?>"
                           data-satuan="<?= htmlspecialchars($p['satuan']) ?>">
                     🛒 Tambah
@@ -181,7 +235,11 @@ $categories = [
     <div class="cart-sidebar-total">
       Total: <strong id="sidebar-total">Rp 0</strong>
     </div>
+<<<<<<< HEAD
     <a href="../pages/keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
+=======
+    <a href="keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       Lihat Keranjang →
     </a>
   </div>
@@ -189,4 +247,8 @@ $categories = [
 <div id="cart-overlay" class="cart-overlay"></div>
 
 
+<<<<<<< HEAD
 <?php include '../includes/footer.php'; ?>
+=======
+<?php include 'includes/footer.php'; ?>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e

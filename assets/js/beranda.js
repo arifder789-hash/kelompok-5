@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+<<<<<<< HEAD
   /* ── 1. NAVBAR SCROLL EFFECT ── */
   const navbar = document.getElementById('navbar');
   const onScroll = () => {
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+=======
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
   /* ── 3. SCROLL REVEAL ── */
   const revealEls = document.querySelectorAll('.reveal');
@@ -145,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3500);
   }
 
+<<<<<<< HEAD
   /* ── 8. SMOOTH ACTIVE NAV LINK ON SCROLL ── */
   const sections  = document.querySelectorAll('section[id]');
   const navLinks  = document.querySelectorAll('.navbar-links a');
@@ -158,5 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.4 });
   sections.forEach(s => navObs.observe(s));
+=======
+
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
 });

@@ -2,8 +2,13 @@
 // ============================================
 //  checkout.php — Form Pemesanan
 // ============================================
+<<<<<<< HEAD
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../includes/cart_helper.php';
+=======
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/cart_helper.php';
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 
 // Redirect jika cart kosong
 if (cartEmpty()) {
@@ -28,15 +33,25 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
   <title>Checkout — Rameza Egg Farm</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<<<<<<< HEAD
   <link rel="stylesheet" href="../assets/css/shop.css"/>
+=======
+  <link rel="stylesheet" href="assets/css/shop.css"/>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
+<<<<<<< HEAD
   <a href="../beranda.php" class="navbar-brand">Rameza Farm</a>
   <ul class="navbar-links">
     <li><a href="../beranda.php">Beranda</a></li>
+=======
+  <a href="beranda.php" class="navbar-brand">🐔 Rameza Farm</a>
+  <ul class="navbar-links">
+    <li><a href="beranda.php">Beranda</a></li>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
     <li><a href="tentang.php">Tentang</a></li>
     <li><a href="produk.php">Produk</a></li>
     <li><a href="kontak.php">Kontak</a></li>
@@ -51,7 +66,11 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 <div class="page-header small">
   <div class="container">
     <div class="breadcrumb">
+<<<<<<< HEAD
       <a href="../beranda.php">Beranda</a> /
+=======
+      <a href="beranda.php">Beranda</a> /
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       <a href="produk.php">Produk</a> /
       <a href="keranjang.php">Keranjang</a> /
       <span>Checkout</span>
@@ -86,7 +105,11 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 
   <!-- ── KIRI: Form ── -->
   <div class="cart-items-col">
+<<<<<<< HEAD
     <form method="POST" action="../controller/proses_checkout.php" id="checkout-form" novalidate>
+=======
+    <form method="POST" action="proses_checkout.php" id="checkout-form" novalidate>
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
       <?php
         // CSRF token
         if (!isset($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16));
@@ -100,7 +123,11 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="nama">Nama Lengkap <span class="req">*</span></label>
+<<<<<<< HEAD
             <input type="text" id="nama" name="nama" class="form-input"
+=======
+            <input type="text" id="nama" name="nama" class="form-input <?= isset($errors) && in_array_key('nama', $old) ? '' : '' ?>"
+>>>>>>> 6091c61ef05d62631a11839af424cc438bb6f36e
                    value="<?= htmlspecialchars($old['nama'] ?? '') ?>"
                    placeholder="Masukkan nama lengkap" required/>
           </div>
