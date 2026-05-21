@@ -1,13 +1,13 @@
 <?php
+session_start();
 // ============================================
 //  checkout.php — Form Pemesanan
 // ============================================
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../includes/cart_helper.php';
 
-// Redirect jika cart kosong
 if (cartEmpty()) {
-    header('Location: keranjang.php');
+    header('Location: ../pages/keranjang.php');
     exit;
 }
 
@@ -34,14 +34,14 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <a href="../beranda.php" class="navbar-brand">Rameza Farm</a>
+  <a href="../beranda.php" class="navbar-brand">🐔 Rameza Farm</a>
   <ul class="navbar-links">
     <li><a href="../beranda.php">Beranda</a></li>
-    <li><a href="tentang.php">Tentang</a></li>
-    <li><a href="produk.php">Produk</a></li>
-    <li><a href="kontak.php">Kontak</a></li>
+    <li><a href="../pages/tentang.php">Tentang</a></li>
+    <li><a href="../pages/produk.php">Produk</a></li>
+    <li><a href="../pages/kontak.php">Kontak</a></li>
   </ul>
-  <a href="keranjang.php" class="cart-btn" id="cart-btn">
+  <a href="../pages/keranjang.php" class="cart-btn" id="cart-btn">
     🛒 Keranjang
     <span class="cart-badge"><?= $cartCount ?></span>
   </a>
@@ -52,8 +52,8 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
   <div class="container">
     <div class="breadcrumb">
       <a href="../beranda.php">Beranda</a> /
-      <a href="produk.php">Produk</a> /
-      <a href="keranjang.php">Keranjang</a> /
+      <a href="../pages/produk.php">Produk</a> /
+      <a href="../pages/keranjang.php">Keranjang</a> /
       <span>Checkout</span>
     </div>
     <h1 class="page-title">Informasi <span class="blue">Pemesanan</span></h1>
@@ -80,7 +80,11 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
   <?php if ($errors): ?>
     <div class="error-banner" style="grid-column:1/-1;">
       <strong>⚠️ Mohon perbaiki kesalahan berikut:</strong>
-      <ul><?php foreach ($errors as $e): ?><li><?= htmlspecialchars($e) ?></li><?php endforeach; ?></ul>
+      <ul>
+        <?php foreach ($errors as $e): ?>
+          <li><?= htmlspecialchars($e) ?></li>
+        <?php endforeach; ?>
+      </ul>
     </div>
   <?php endif; ?>
 
@@ -88,8 +92,9 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
   <div class="cart-items-col">
     <form method="POST" action="../controller/proses_checkout.php" id="checkout-form" novalidate>
       <?php
-        // CSRF token
-        if (!isset($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(16));
+        if (!isset($_SESSION['csrf'])) {
+            $_SESSION['csrf'] = bin2hex(random_bytes(16));
+        }
       ?>
       <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>"/>
 
@@ -99,13 +104,18 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="nama">Nama Lengkap <span class="req">*</span></label>
+            <label class="form-label" for="nama">
+              Nama Lengkap <span class="req">*</span>
+            </label>
             <input type="text" id="nama" name="nama" class="form-input"
                    value="<?= htmlspecialchars($old['nama'] ?? '') ?>"
                    placeholder="Masukkan nama lengkap" required/>
           </div>
+
           <div class="form-group">
-            <label class="form-label" for="no_wa">No. WhatsApp <span class="req">*</span></label>
+            <label class="form-label" for="no_wa">
+              No. WhatsApp <span class="req">*</span>
+            </label>
             <div class="input-group">
               <span class="input-prefix">+62</span>
               <input type="tel" id="no_wa" name="no_wa" class="form-input"
@@ -117,7 +127,9 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="email">Email <span class="text-muted">(opsional)</span></label>
+          <label class="form-label" for="email">
+            Email <span class="text-muted">(opsional)</span>
+          </label>
           <input type="email" id="email" name="email" class="form-input"
                  value="<?= htmlspecialchars($old['email'] ?? '') ?>"
                  placeholder="contoh@email.com"/>
@@ -129,7 +141,9 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         <h2 class="cart-card-title">📍 Alamat Pengiriman</h2>
 
         <div class="form-group">
-          <label class="form-label" for="alamat">Alamat Lengkap <span class="req">*</span></label>
+          <label class="form-label" for="alamat">
+            Alamat Lengkap <span class="req">*</span>
+          </label>
           <textarea id="alamat" name="alamat" class="form-input" rows="3"
                     placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan…"
                     required><?= htmlspecialchars($old['alamat'] ?? '') ?></textarea>
@@ -137,13 +151,18 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="kota">Kota / Kecamatan <span class="req">*</span></label>
+            <label class="form-label" for="kota">
+              Kota / Kecamatan <span class="req">*</span>
+            </label>
             <input type="text" id="kota" name="kota" class="form-input"
                    value="<?= htmlspecialchars($old['kota'] ?? '') ?>"
                    placeholder="mis. Bondowoso" required/>
           </div>
+
           <div class="form-group">
-            <label class="form-label" for="metode_bayar">Metode Pembayaran <span class="req">*</span></label>
+            <label class="form-label" for="metode_bayar">
+              Metode Pembayaran <span class="req">*</span>
+            </label>
             <select id="metode_bayar" name="metode_bayar" class="form-input" required>
               <option value="cod"      <?= ($old['metode_bayar'] ?? '') === 'cod'      ? 'selected' : '' ?>>💵 COD (Bayar di Tempat)</option>
               <option value="transfer" <?= ($old['metode_bayar'] ?? '') === 'transfer' ? 'selected' : '' ?>>🏦 Transfer Bank</option>
@@ -153,16 +172,14 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         </div>
 
         <div class="form-group">
-          <label class="form-label" for="catatan">Catatan Pesanan <span class="text-muted">(opsional)</span></label>
+          <label class="form-label" for="catatan">
+            Catatan Pesanan <span class="text-muted">(opsional)</span>
+          </label>
           <textarea id="catatan" name="catatan" class="form-input" rows="2"
                     placeholder="Instruksi khusus, waktu pengiriman yang diinginkan, dll."><?= htmlspecialchars($old['catatan'] ?? '') ?></textarea>
         </div>
       </div>
 
-      <!-- Submit (mobile) -->
-      <button type="submit" class="btn-primary checkout-btn" style="margin-top:20px;display:none;" id="submit-mobile">
-        ✅ Buat Pesanan
-      </button>
     </form>
   </div>
 
@@ -171,7 +188,6 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
     <div class="cart-card">
       <h2 class="cart-card-title">🧾 Ringkasan Pesanan</h2>
 
-      <!-- Items -->
       <div class="checkout-items">
         <?php foreach ($items as $item): ?>
           <div class="checkout-item">
@@ -194,7 +210,9 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         <span>Ongkos Kirim</span>
         <span class="text-muted">Dikonfirmasi via WA</span>
       </div>
+
       <div class="summary-divider"></div>
+
       <div class="summary-row summary-total">
         <span>Total</span>
         <span><?= rupiah($total) ?></span>
@@ -204,7 +222,8 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
         ✅ Buat Pesanan
       </button>
 
-      <a href="keranjang.php" class="btn-outline" style="display:block;text-align:center;margin-top:10px;">
+      <a href="../pages/keranjang.php" class="btn-outline"
+         style="display:block;text-align:center;margin-top:10px;">
         ← Kembali ke Keranjang
       </a>
     </div>
@@ -224,15 +243,17 @@ unset($_SESSION['checkout_errors'], $_SESSION['checkout_old']);
 </footer>
 
 <script>
-// Client-side form validation
 document.getElementById('checkout-form').addEventListener('submit', function(e) {
-  const nama  = document.getElementById('nama').value.trim();
-  const noWa  = document.getElementById('no_wa').value.trim();
-  const alamat = document.getElementById('alamat').value.trim();
-  const kota  = document.getElementById('kota').value.trim();
+  const fields = [
+    ['nama',   document.getElementById('nama').value.trim()],
+    ['no_wa',  document.getElementById('no_wa').value.trim()],
+    ['alamat', document.getElementById('alamat').value.trim()],
+    ['kota',   document.getElementById('kota').value.trim()],
+  ];
+
   let ok = true;
 
-  [['nama', nama], ['no_wa', noWa], ['alamat', alamat], ['kota', kota]].forEach(([id, val]) => {
+  fields.forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (!val) {
       el.classList.add('input-error');

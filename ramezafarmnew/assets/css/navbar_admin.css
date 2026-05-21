@@ -1,0 +1,76 @@
+
+ .sidebar-admin { 
+    position: fixed;
+        background: #0056b3; 
+        width: 260px; 
+        height: 100vh; 
+        position: fixed; 
+        top: 0; left: 0;
+        display: flex; 
+        flex-direction: column; 
+        color: white; 
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+        padding: 30px 20px;
+        z-index: 1000;
+    }
+
+    .sidebar-admin .logo { 
+        font-weight: bold; 
+        font-size: 1.4rem; 
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-align: center;
+        padding-bottom: 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 30px;
+    }
+
+    .sidebar-nav-links {
+        display: flex;
+        flex-direction: column; 
+        gap: 12px;
+        flex: 1; 
+    }
+
+    .sidebar-nav-links a { 
+        color: rgba(255, 255, 255, 0.8); 
+        text-decoration: none; 
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500; 
+        font-size: 15px;
+        transition: all 0.3s ease; 
+        display: block;
+    }
+
+    .sidebar-nav-links a:hover, .sidebar-nav-links a.active { 
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+        padding-left: 25px;
+    }
+
+    .sidebar-nav-links a.logout-btn {
+        margin-top: auto; 
+        color: #ffb3b3;
+        border: 1px dashed rgba(255, 82, 82, 0.4);
+    }
+
+    .sidebar-nav-links a.logout-btn:hover {
+        background: rgba(255, 82, 82, 0.2);
+        color: #ff5252;
+        border-color: #ff5252;
+        padding-left: 20px; 
+    }
+
+    /* Efek menyembunyikan navbar samping */
+.sidebar.hide-navbar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+    @media (max-width: 768px) {
+        .sidebar-admin { width: 100%; height: auto; position: relative; padding: 20px; }
+        .sidebar-nav-links a.logout-btn { margin-top: 10px; }
+    }

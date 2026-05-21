@@ -88,14 +88,11 @@ a  { text-decoration: none; color: inherit; }
   padding: 8px 16px; border-radius: var(--radius-full);
   transition: background 0.2s, color 0.2s;
 }
-
-.navbar-cta {
-  background: var(--white); color: var(--blue-dark);
-  padding: 9px 24px; border-radius: var(--radius-full);
-  font-size: 14px; font-weight: 700;
-  transition: transform 0.2s, box-shadow 0.2s;
+.navbar-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.navbar-links a.active {
+  background: rgba(255,255,255,0.18); color: #fff; font-weight: 700;
+  text-decoration: underline; text-underline-offset: 4px;
 }
-.navbar-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,255,255,0.3); }
 
 .navbar-hamburger {
   display: none; flex-direction: column; gap: 5px;
@@ -106,7 +103,6 @@ a  { text-decoration: none; color: inherit; }
   background: #fff; border-radius: 2px;
   transition: transform 0.3s, opacity 0.3s;
 }
-
 /* ─────────────────────────────
    HERO
 ───────────────────────────── */

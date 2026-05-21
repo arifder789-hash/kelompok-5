@@ -2,25 +2,21 @@
 // ============================================
 //  proses_checkout.php — Simpan Pesanan ke DB
 // ============================================
-require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../includes/cart_helper.php';
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/cart_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../pages/checkout.php'); exit;
-}
-
-if (empty($_SESSION['id_pelanggan'])) {
-    header('Location: ../loginuser.php'); exit;
+    header('Location: checkout.php'); exit;
 }
 
 // CSRF check
 if (!isset($_POST['csrf']) || $_POST['csrf'] !== ($_SESSION['csrf'] ?? '')) {
-    die('Sesi tidak valid. <a href="../pages/checkout.php">Kembali</a>');
+    die('Sesi tidak valid. <a href="checkout.php">Kembali</a>');
 }
 
 // Redirect jika cart kosong
 if (cartEmpty()) {
-    header('Location: ../pages/produk.php'); exit;
+    header('Location: produk.php'); exit;
 }
 
 // ── Sanitize input ────────────────────────────
@@ -43,7 +39,7 @@ if (!$kota)                          $errors[] = 'Kota / Kecamatan wajib diisi.'
 if ($errors) {
     $_SESSION['checkout_errors'] = $errors;
     $_SESSION['checkout_old']    = $_POST;
-    header('Location: ../pages/checkout.php'); exit;
+    header('Location: checkout.php'); exit;
 }
 
 // ── Hitung total dari session (jangan percaya POST) ──
@@ -59,14 +55,13 @@ try {
     // 1. Insert header pesanan
     $stmt = $pdo->prepare("
         INSERT INTO pesanan
-            (id_pelanggan, kode_pesanan, nama_penerima, no_wa, alamat_kirim, kota, catatan,
+            (kode_pesanan, nama_pembeli, no_wa, email, alamat, kota, catatan,
              total_harga, ongkir, grand_total, metode_bayar, status)
         VALUES (?,?,?,?,?,?,?, ?,?,?, ?, 'pending')
     ");
     $stmt->execute([
-        $_SESSION['id_pelanggan'],
         $kodePesanan,
-        $nama, $no_wa_raw,
+        $nama, $no_wa_raw, $email,
         $alamat, $kota, $catatan,
         $total, 0, $total,
         $metode
@@ -75,7 +70,7 @@ try {
 
     // 2. Insert detail items
     $stmtDetail = $pdo->prepare("
-        INSERT INTO detail_pesanan (id_pesanan, id_produk, nama_produk, harga_saat_beli, satuan, jumlah, subtotal)
+        INSERT INTO detail_pesanan (pesanan_id, produk_id, nama_produk, harga, satuan, qty, subtotal)
         VALUES (?,?,?,?,?,?,?)
     ");
     foreach ($items as $item) {
@@ -89,7 +84,7 @@ try {
             $item['subtotal'],
         ]);
         // Kurangi stok
-        $pdo->prepare("UPDATE produk SET stok = stok - ? WHERE id_produk = ?")
+        $pdo->prepare("UPDATE produk SET stok = stok - ? WHERE id = ?")
             ->execute([$item['qty'], $item['produk_id']]);
     }
 
@@ -100,13 +95,13 @@ try {
     unset($_SESSION['csrf']);
 
     // Redirect ke halaman sukses
-    header("Location: ../controller/sukses.php?kode=" . urlencode($kodePesanan));
+    header("Location: sukses.php?kode=" . urlencode($kodePesanan));
     exit;
 
 } catch (PDOException $e) {
     $pdo->rollBack();
     $_SESSION['checkout_errors'] = ['Terjadi kesalahan sistem. Silakan coba lagi.'];
     error_log("Order error: " . $e->getMessage());
-    header('Location: ../pages/checkout.php');
+    header('Location: checkout.php');
     exit;
 }

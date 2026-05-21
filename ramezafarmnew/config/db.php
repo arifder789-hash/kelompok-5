@@ -5,7 +5,7 @@
 // ============================================
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'rameza_database'); // ← ganti jika perlu
+define('DB_NAME', 'project_rameza'); // ← ganti jika perlu
 define('DB_USER', 'root');        // ← ganti jika perlu
 define('DB_PASS', '');            // ← ganti jika perlu
 define('DB_CHAR', 'utf8mb4');
@@ -21,17 +21,10 @@ try {
             PDO::ATTR_EMULATE_PREPARES   => false,
         ]
     );
+
+    $conn = $pdo; // ← tambahkan baris ini saja
+
 } catch (PDOException $e) {
     http_response_code(500);
     die(json_encode(['error' => 'Koneksi database gagal: ' . $e->getMessage()]));
-}
-
-// ─── Helper: format rupiah ───────────────────
-function rupiah(float $nominal): string {
-    return 'Rp ' . number_format($nominal, 0, ',', '.');
-}
-
-// ─── Helper: generate kode pesanan ──────────
-function generateKodePesanan(): string {
-    return 'RMZ-' . strtoupper(substr(uniqid(), -6)) . '-' . date('ymd');
 }

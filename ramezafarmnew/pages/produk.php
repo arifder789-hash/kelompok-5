@@ -1,8 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../includes/cart_helper.php';
+session_start(); 
+require_once(__DIR__ . "/../config/db.php");
 
-// Filter kategori
+require_once(__DIR__ . "/../includes/cart_helper.php");
+// ========== FILTER ==========
 $kategori = $_GET['kategori'] ?? '';
 $search   = trim($_GET['q'] ?? '');
 
@@ -18,24 +19,21 @@ if ($search) {
     $params[] = "%$search%";
     $params[] = "%$search%";
 }
-$where[] = 'p.aktif = 1';
-// 1. Mulai dengan query dasar
+
+// ========== QUERY ==========
 $sql = "SELECT * FROM produk p";
 
-// 2. Cek apakah ada filter di dalam array $where
 if (!empty($where)) {
     $sql .= " WHERE " . implode(' AND ', $where);
 }
 
-// 3. Tambahkan ORDER BY di akhir query (pastikan ada spasi di awalnya)
 $sql .= " ORDER BY p.kategori, p.nama_produk";
 
-// 4. Lanjutkan proses PDO seperti biasa
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $produkList = $stmt->fetchAll();
-$cartCount = cartCount();
 
+$cartCount  = cartCount();
 $categories = [
     ''       => 'Semua Produk',
     'telur'  => '🥚 Telur Ayam',
@@ -43,17 +41,19 @@ $categories = [
     'pakan'  => '🌾 Pakan & Pulet',
     'obat'   => '💊 Vitamin & Obat',
 ];
+
 ?>
+
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/navbar.php'; ?>
 
 <!-- PAGE HEADER -->
+ <link rel="stylesheet" href="../assets/css/shop.css">
 <div class="page-header">
   <div class="container">
     <h1 class="page-title">Produk <span class="blue">Kami</span></h1>
     <p class="page-desc">Telur segar, bibit unggas, pakan, dan vitamin berkualitas langsung dari peternak.</p>
 
-    <!-- Search -->
     <form method="GET" class="search-form">
       <?php if ($kategori): ?>
         <input type="hidden" name="kategori" value="<?= htmlspecialchars($kategori) ?>"/>
@@ -72,7 +72,7 @@ $categories = [
   <!-- Category Tabs -->
   <div class="cat-tabs">
     <?php foreach ($categories as $key => $label): ?>
-      <a href="../pages/produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
+      <a href="produk.php?kategori=<?= $key ?><?= $search ? '&q=' . urlencode($search) : '' ?>"
          class="cat-tab <?= $kategori === $key ? 'active' : '' ?>">
         <?= $label ?>
       </a>
@@ -91,8 +91,9 @@ $categories = [
       <div class="empty-icon">📦</div>
       <h3>Produk tidak ditemukan</h3>
       <p>Coba kata kunci lain atau pilih kategori yang berbeda.</p>
-      <a href="../pages/produk.php" class="btn-primary">Lihat Semua Produk</a>
+      <a href="produk.php" class="btn-primary">Lihat Semua Produk</a>
     </div>
+
   <?php else: ?>
     <div class="product-grid">
       <?php foreach ($produkList as $p): ?>
@@ -101,10 +102,7 @@ $categories = [
           <!-- Gambar -->
           <div class="product-img-wrap">
             <?php
-              $imgSrc = $p['gambar'] ?: '../assets/img/no-image.png';
-              if (str_starts_with($imgSrc, 'assets/')) {
-                $imgSrc = '../' . $imgSrc;
-              }
+              $imgSrc   = $p['gambar'] ?: '../assets/img/no-image.png';
               $catBadge = [
                 'telur' => ['label' => '🥚 Unggulan', 'class' => 'badge-amber'],
                 'bibit' => ['label' => '🐣 Bibit',    'class' => 'badge-green'],
@@ -117,6 +115,7 @@ $categories = [
                  alt="<?= htmlspecialchars($p['nama_produk']) ?>"
                  onerror="this.src='https://placehold.co/400x280/e8eefb/2d5be3?text=<?= urlencode($p['nama_produk']) ?>'"/>
             <span class="product-badge <?= $badge['class'] ?>"><?= $badge['label'] ?></span>
+
             <?php if ($p['stok'] <= 5 && $p['stok'] > 0): ?>
               <span class="stok-badge">Stok terbatas!</span>
             <?php elseif ($p['stok'] == 0): ?>
@@ -126,13 +125,15 @@ $categories = [
 
           <!-- Info -->
           <div class="product-body">
-            <div class="product-kode"><?= htmlspecialchars($p['kode_produk']) ?></div>
+            <?php if ($p['kode']): ?>
+              <div class="product-kode"><?= htmlspecialchars($p['kode']) ?></div>
+            <?php endif; ?>
             <h3 class="product-name"><?= htmlspecialchars($p['nama_produk']) ?></h3>
             <p class="product-desc"><?= htmlspecialchars(substr($p['deskripsi'], 0, 90)) ?>…</p>
 
             <div class="product-footer">
               <div class="product-price">
-                <span class="price"><?= rupiah($p['harga']) ?></span>
+                <span class="price"><?= rupiah((float)$p['harga']) ?></span>
                 <span class="price-unit">/ <?= htmlspecialchars($p['satuan']) ?></span>
               </div>
 
@@ -140,8 +141,10 @@ $categories = [
                 <div class="qty-add-wrap">
                   <div class="qty-control">
                     <button class="qty-btn minus" aria-label="Kurang">−</button>
-                    <input type="number" class="qty-input" value="<?= $p['min_pesan'] ?>"
-                           min="<?= $p['min_pesan'] ?>" max="<?= $p['stok'] ?>"/>
+                    <input type="number" class="qty-input"
+                           value="<?= $p['min_pesan'] ?>"
+                           min="<?= $p['min_pesan'] ?>"
+                           max="<?= $p['stok'] ?>"/>
                     <button class="qty-btn plus" aria-label="Tambah">+</button>
                   </div>
                   <button class="add-to-cart-btn"
@@ -168,7 +171,7 @@ $categories = [
 <!-- TOAST NOTIFICATION -->
 <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
-<!-- CART SIDEBAR (mini preview) -->
+<!-- CART SIDEBAR -->
 <div id="cart-sidebar" class="cart-sidebar">
   <div class="cart-sidebar-header">
     <span>🛒 Keranjang Belanja</span>
@@ -181,12 +184,11 @@ $categories = [
     <div class="cart-sidebar-total">
       Total: <strong id="sidebar-total">Rp 0</strong>
     </div>
-    <a href="../pages/keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
+    <a href="keranjang.php" class="btn-primary" style="display:block;text-align:center;margin-top:12px;">
       Lihat Keranjang →
     </a>
   </div>
 </div>
 <div id="cart-overlay" class="cart-overlay"></div>
-
 
 <?php include '../includes/footer.php'; ?>

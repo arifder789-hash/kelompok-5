@@ -1,0 +1,186 @@
+body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            min-height: 100vh; 
+        }
+        
+        .main-content { 
+            flex: 1; 
+            padding: 40px; 
+            margin-left: 260px; 
+        }
+        
+        /* Card Sambutan Admin */
+        .welcome-card {
+            background: linear-gradient(135deg, #0056b3, #007bff);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+            margin-bottom: 30px;
+        }
+        .welcome-card h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .welcome-card p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        /* Grid Info Box / Statistik */
+        .info-boxes { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 20px; 
+        }
+        .box { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+            border-left: 5px solid #0056b3; 
+            transition: transform 0.2s ease;
+        }
+        .box:hover {
+            transform: translateY(-3px);
+        }
+        .box.pending { border-left-color: #ffc107; }
+        .box.done { border-left-color: #28a745; }
+        .box.omzet { border-left-color: #007bff; }
+        .box.kontak { border-left-color: #dc3545; }
+        
+        .box h3 { 
+            margin: 0; 
+            font-size: 13px; 
+            color: #6c757d; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .box p { 
+            margin: 15px 0 0 0; 
+            font-size: 32px; 
+            font-weight: bold; 
+            color: #212529; 
+        }
+
+        /* Layout Grid Bawah */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Card Umum Aktivitas, Grafik, dan Jam */
+        .activity-card, .chart-card, .clock-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .activity-card h3, .chart-card h3, .clock-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #0056b3;
+            font-size: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        /* List Aktivitas */
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .activity-item {
+            padding: 12px 0;
+            border-bottom: 1px dashed #f1f5f9;
+            font-size: 14px;
+            color: #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-time { color: #94a3b8; font-size: 12px; }
+
+        .clock-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Judul Atas Card Jam */
+        .clock-card h3 {
+         margin-top: 0;
+          margin-bottom: 20px;
+          color: #0056b3;
+           font-size: 16px;
+          border-bottom: 1px solid #f1f5f9;
+           padding-bottom: 10px;
+           font-weight: 600;
+}
+
+/* Kotak Dalam Penampung Jam & Tanggal */
+        .clock-body {
+            text-align: center;
+            padding: 20px 0;
+            background: white; /* Warna abu-abu sangat muda agar angka jam kontras */
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Angka Jam Utama */
+        #jam-realtime {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1e293b; /* Warna gelap agar tajam */
+            margin: 0 0 5px 0;
+            font-family: 'Courier New', Courier, monospace; /* Mencegah teks geser-geser saat detik berubah */
+            letter-spacing: 1px;
+        }
+
+        /* Teks Tanggal di Bawah Jam */
+        #tanggal-realtime {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Bagian Footer Card Jam */
+        .clock-footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+        }
+
+        /* Card Utama Jam Digital (Background Putih) */
+
+
+        /* Responsif Layout */
+        @media (max-width: 992px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) { 
+            body { flex-direction: column; } 
+            .main-content { margin-left: 0; padding: 20px; } 
+        }

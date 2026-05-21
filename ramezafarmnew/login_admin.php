@@ -22,12 +22,7 @@ if (isset($_POST['login'])) {
 <html>
 <head>
     <title>Login Admin - Rameza Egg Farm</title>
-    <style>
-        body { font-family: sans-serif; background: #2c3e50; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .login-box { background: white; padding: 30px; border-radius: 8px; width: 300px; }
-        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background: #27ae60; color: white; border: none; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" href="assets/css/login_admin.css">
 </head>
 <body>
     <div class="login-box">

@@ -3,22 +3,22 @@ session_start();
 include 'config/koneksi.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    $username = trim(mysqli_real_escape_string($conn, $_POST['username']));
+    $password = trim($_POST['password']);
 
-    $stmt = $conn->prepare("SELECT id_pelanggan, username, password_pelanggan FROM pelanggan WHERE username = ?");
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $sql    = "SELECT * FROM pelanggan WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password_pelanggan'])) {
-            $_SESSION['id_pelanggan'] = (int) $row['id_pelanggan'];
-            $_SESSION['username']     = $row['username'];
-            $_SESSION['nama_user']    = $row['username'];
+            // ---- PERBAIKAN SESSION DI SINI ----
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['id_pelanggan']   = $row['id_pelanggan']; // Pastikan nama kolom di DB sesuai (misal: id_pelanggan)
+            $_SESSION['username']       = $row['username'];
+            $_SESSION['nama_user']      = $row['nama_pelanggan']; // Ambil nama lengkap dari DB untuk dipajang di dashboard
             
-            header("Location: pages/produk.php");
+            header("Location: pages/userdash.php");
             exit;
         } else {
             $error = "Password salah!";
