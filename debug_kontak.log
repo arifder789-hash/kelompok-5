@@ -1,0 +1,42 @@
+[2026-05-31 13:28:11] --- REQUEST START ---
+[2026-05-31 13:28:11] METHOD: POST
+[2026-05-31 13:28:11] POST: Array
+(
+    [subjek] => Tanya Stok
+    [nama_pengirim] => E31250836 ACHMAD GALIH ADHYAKSA
+    [no_wa] => 8123456789
+    [email] => e31250836@student.polije.ac.id
+    [pesan] => apakah stok telur ada?
+)
+
+[2026-05-31 13:28:11] DB included, conn=OK
+[2026-05-31 13:28:11] DATA: nama=E31250836 ACHMAD GALIH ADHYAKSA | wa=8123456789 | email=e31250836@student.polije.ac.id | subjek=Tanya Stok
+[2026-05-31 13:28:11] SUCCESS: insert id=4
+[2026-05-31 13:52:51] --- REQUEST START ---
+[2026-05-31 13:52:51] METHOD: POST
+[2026-05-31 13:52:51] POST: Array
+(
+    [subjek] => Mitra
+    [nama_pengirim] => Galih
+    [no_wa] => 81334987130
+    [email] => galihadhyaksa27@gmail.com
+    [pesan] => Saya punya toko, mau bermitra atau kerja sama dengan peternakan ini
+)
+
+[2026-05-31 13:52:51] DB included, conn=OK
+[2026-05-31 13:52:51] DATA: nama=Galih | wa=81334987130 | email=galihadhyaksa27@gmail.com | subjek=Mitra
+[2026-05-31 13:52:51] SUCCESS: insert id=5
+[2026-05-31 15:11:39] --- REQUEST START ---
+[2026-05-31 15:11:39] METHOD: POST
+[2026-05-31 15:11:39] POST: Array
+(
+    [subjek] => Komplain
+    [nama_pengirim] => rom
+    [no_wa] => 098889998889
+    [email] => rom123@gmail.com
+    [pesan] => saya ingin memberikan keluhan terkait salah satu produk anda
+)
+
+[2026-05-31 15:11:39] DB included, conn=OK
+[2026-05-31 15:11:39] DATA: nama=rom | wa=098889998889 | email=rom123@gmail.com | subjek=Komplain
+[2026-05-31 15:11:39] SUCCESS: insert id=4
