@@ -1,0 +1,334 @@
+/* ============================================================
+   RAMEZA FARM — footer.css
+   Premium footer with blue brand consistency
+   ============================================================ */
+
+/* ── Footer Container ── */
+footer {
+  background: linear-gradient(160deg, #0b1a2a 0%, #0f2440 40%, #132d50 100%);
+  color: rgba(255,255,255,0.6);
+  padding: 72px 48px 0;
+  font-family: var(--font-primary, 'Poppins', sans-serif);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top accent line — blue brand */
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--blue-main, #1f6fd6),
+    var(--blue-glow, #5aa2ff),
+    var(--blue-main, #1f6fd6),
+    var(--blue-glow, #5aa2ff),
+    var(--blue-main, #1f6fd6));
+}
+
+/* Subtle radial glow decoration */
+footer::after {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(31,111,214,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Grid Layout — 3 Columns ── */
+.footer-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1.6fr;
+  gap: 56px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Kolom 1: Brand ── */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.3px;
+}
+
+.footer-brand-desc {
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.48);
+  max-width: 310px;
+  margin-bottom: 4px;
+}
+
+/* ── Social Media Icons ── */
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.footer-social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(31,111,214,0.12);
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(31,111,214,0.15);
+}
+
+.footer-social-link:hover {
+  background: rgba(31,111,214,0.25);
+  color: #fff;
+  transform: translateY(-3px);
+  border-color: rgba(90,162,255,0.35);
+  box-shadow: 0 6px 20px rgba(31,111,214,0.25);
+}
+
+/* ── Kolom 2: Quick Links ── */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue-glow, #5aa2ff);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-col li a {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  position: relative;
+}
+
+.footer-col li a::before {
+  content: '›';
+  color: var(--blue-main, #1f6fd6);
+  font-weight: 700;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: all 0.25s ease;
+}
+
+.footer-col li a:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.footer-col li a:hover::before {
+  opacity: 1;
+  color: var(--blue-glow, #5aa2ff);
+}
+
+/* ── Kolom 3: Temukan Kami + Peta ── */
+.footer-findus {
+  max-width: 100%;
+}
+
+.footer-company-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 6px;
+}
+
+.footer-address {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 360px;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.footer-contact-list a,
+.footer-contact-list span {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-contact-list a:hover {
+  color: var(--blue-glow, #5aa2ff);
+}
+
+/* ── Map Wrapper ── */
+.footer-map-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(31,111,214,0.2);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+
+.footer-map-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: rgba(31,111,214,0.92);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+
+.footer-map-link:hover {
+  background: var(--blue-hover, #2f80ff);
+  box-shadow: 0 4px 16px rgba(31,111,214,0.4);
+  transform: translateY(-1px);
+}
+
+.footer-map-wrapper iframe {
+  display: block;
+  filter: saturate(0.7) brightness(0.85) contrast(1.1);
+  transition: filter 0.4s ease;
+}
+
+.footer-map-wrapper:hover iframe {
+  filter: saturate(1) brightness(1) contrast(1);
+}
+
+/* ── Footer Bottom Bar ── */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-bottom a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-bottom a:hover {
+  color: var(--blue-glow, #5aa2ff);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  footer {
+    padding: 56px 32px 0;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-findus {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 48px 20px 0;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .footer-findus {
+    grid-column: auto;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 20px 0;
+  }
+  .footer-bottom-links {
+    justify-content: center;
+    gap: 16px;
+  }
+  .footer-map-wrapper iframe {
+    height: 160px;
+  }
+  .footer-brand-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 40px 16px 0;
+  }
+  .footer-grid {
+    gap: 28px;
+  }
+  .footer-social-link {
+    width: 36px;
+    height: 36px;
+  }
+}

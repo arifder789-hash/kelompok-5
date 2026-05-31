@@ -1,0 +1,598 @@
+/* ============================================================
+   GLOBAL.CSS — Rameza Egg Farm
+   Global styles and design tokens used across all pages
+   ============================================================ */
+
+/* ==================== GOOGLE FONTS ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ==================== DESIGN TOKENS ==================== */
+:root {
+    /* Brand Colors */
+    --blue-main:        #1f6fd6;
+    --blue-dark:        #174ea6;
+    --blue-soft:        #eaf3ff;
+    --blue-hover:       #2f80ff;
+    --blue-glow:        #5aa2ff;
+
+    /* Backgrounds */
+    --bg-dark:          #0b1a2a;
+    --bg-light:         #f4f8ff;
+    --bg-card:          #ffffff;
+
+    /* Text Colors */
+    --text-dark:        #1e293b;
+    --text-muted:       #64748b;
+    --text-light:       #f9fafb;
+
+    /* Accent Colors */
+    --yellow-main:      #fbbf24;
+    --yellow-dark:      #f59e0b;
+    --red-main:         #ff5f5f;
+    --red-dark:         #e53935;
+    --green-main:       #22c55e;
+
+    /* Borders */
+    --border-light:     #e3ecff;
+    --border-muted:     rgba(255,255,255,0.15);
+
+    /* Shadows */
+    --shadow-soft:      0 4px 12px rgba(0,0,0,0.08);
+    --shadow-medium:    0 8px 22px rgba(0,0,0,0.12);
+    --shadow-hard:      0 14px 40px rgba(0,0,0,0.18);
+
+    /* Border Radius */
+    --radius-sm:        8px;
+    --radius-md:        12px;
+    --radius-lg:        20px;
+    --radius-xl:        28px;
+    --radius-full:      999px;
+
+    /* Transitions */
+    --transition-fast:  0.2s ease;
+    --transition-base:  0.3s ease;
+    --transition-slow:  0.45s ease;
+
+    /* Z-index Layers */
+    --z-base:           1;
+    --z-nav:            1000;
+    --z-modal:          9000;
+    --z-loader:         9999;
+
+    /* Typography */
+    --font-primary:     'Poppins', sans-serif;
+    --font-size-base:   16px;
+    --line-height-base: 1.6;
+}
+
+/* ==================== RESET & NORMALIZATION ==================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: var(--font-size-base);
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: var(--line-height-base);
+    overflow-x: hidden;
+}
+
+/* Images */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-base);
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    flex-direction: column;
+    padding: 16px 24px 24px;
+    background: #3b5fd4;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.mobile-menu.open {
+    display: flex;
+}
+
+.mobile-menu a {
+    padding: 14px 0;
+    color: rgba(255,255,255,0.88);
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu a.active {
+    color: #fcd34d;
+}
+
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(0,0,0,0.88);
+}
+
+#lightbox.open {
+    display: flex;
+}
+
+#lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 12px;
+    object-fit: contain;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    padding: 6px 14px;
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+}
+
+#lightbox-close:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    background: #1e293b;
+    border-radius: 100px;
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    transition: opacity 0.35s, transform 0.35s;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast.toast-error {
+    background: #b91c1c;
+}
+
+.toast.toast-success {
+    background: #15803d;
+}
+
+/* Lists */
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Form Elements */
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+h6 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+small {
+    font-size: 0.875rem;
+}
+
+/* ==================== PAGE TRANSITIONS ==================== */
+.page-transition {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    z-index: var(--z-loader);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-slow);
+}
+
+.page-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Fade-in animation on page load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.page-enter {
+    animation: fadeIn 0.6s ease;
+}
+
+/* Slide-in notification animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ==================== CONTAINERS ==================== */
+.container,
+.page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ==================== GRID & FLEXBOX UTILITIES ==================== */
+.grid {
+    display: grid;
+}
+
+.flex {
+    display: flex;
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+/* ==================== SPACING UTILITIES ==================== */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.p-4 { padding: 1rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+
+/* ==================== RESPONSIVE UTILITIES ==================== */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+}
+
+/* ==================== SCROLLBAR STYLING ==================== */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--blue-main);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-dark);
+}
+
+/* ==================== SELECTION STYLING ==================== */
+::selection {
+    background-color: var(--blue-main);
+    color: white;
+}
+
+::-moz-selection {
+    background-color: var(--blue-main);
+    color: white;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-primary {
+    color: var(--blue-main);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-light {
+    color: var(--text-light);
+}
+
+.bg-primary {
+    background-color: var(--blue-main);
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.shadow {
+    box-shadow: var(--shadow-soft);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-hard);
+}
+
+.rounded {
+    border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+    border-radius: var(--radius-lg);
+}
+
+.rounded-full {
+    border-radius: var(--radius-full);
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+.transition {
+    transition: var(--transition-base);
+}
+
+.transition-slow {
+    transition: var(--transition-slow);
+}
+
+/* ==================== LOADING SPINNER ==================== */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--blue-soft);
+    border-radius: 50%;
+    border-top-color: var(--blue-main);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==================== BUTTON BASE STYLES ==================== */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--blue-main);
+    color: white;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-base);
+    border: 2px solid transparent;
+}
+
+.btn:hover {
+    background-color: var(--blue-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--blue-main);
+    border-color: var(--blue-main);
+}
+
+.btn-secondary:hover {
+    background-color: var(--blue-soft);
+}
+
+/* ==================== CARDS ==================== */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 24px;
+    transition: var(--transition-base);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hard);
+    transform: translateY(-4px);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    :root {
+        --font-size-base: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --font-size-base: 14px;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .container,
+    .page-container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .container,
+    .page-container {
+        padding: 0 12px;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
