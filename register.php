@@ -55,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html> <!-- Menentukan tipe dokumen HTML -->
+<html lang="id"> <!-- Bahasa halaman indonesia -->
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- membuat tampilan responsif di berbagai perangkat-->
   <meta name="description" content="Daftar akun pelanggan Rameza Egg Farm"/>
   <title>Daftar Akun — Rameza Egg Farm</title>
 
@@ -69,11 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,500&display=swap" rel="stylesheet"/>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/loginuser.css?v=2"/>
+  <link rel="stylesheet" href="assets/css/loginuser.css?v=2"/> <!-- menghubungkan file CSS-->
 </head>
 <body>
 
-<div class="login-shell">
+<div class="login-shell"> <!-- container utama halaman login-->
 
   <!-- ════════════════════════════════════
        KIRI — VISUAL PANEL
