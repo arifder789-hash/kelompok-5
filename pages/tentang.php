@@ -98,10 +98,10 @@ include '../includes/navbar.php';
     <a href="#komitmen"    class="t-subnav__link">Visi &amp; Misi</a>
     <span class="t-subnav__dot"></span>
     <a href="#keunggulan"  class="t-subnav__link">Keunggulan</a>
-    <span class="t-subnav__dot"></span>
-    <a href="#perjalanan"  class="t-subnav__link">Perjalanan Kami</a>
+
   </nav>
 </div>
+
 
 
 <section class="t-kisah" id="kisah-kami">
@@ -337,109 +337,5 @@ include '../includes/navbar.php';
   </div>
 </section>
 
-
-<section class="t-perjalanan" id="perjalanan">
-  <div class="container">
-
-    <div class="t-perjalanan__header reveal">
-      <div class="t-label-bar"></div>
-      <p class="t-section-eyebrow">Perjalanan Kami</p>
-      <h2 class="t-section-heading">
-        Satu Dekade <em class="t-section-heading__em">Dedikasi</em><br/>
-        dalam Peternakan Berkualitas
-      </h2>
-    </div>
-
-    <div class="t-tl">
-      <div class="t-tl__line"></div>
-
-      <div class="t-tl__item reveal">
-        <div class="t-tl__card">
-          <div class="t-tl__card-top">
-            <span class="t-tl__year-tag">2015</span>
-            <span class="t-tl__card-badge t-tl__card-badge--start">🌱 Awal Mula</span>
-          </div>
-          <h3 class="t-tl__title">Langkah Awal Rameza Farm</h3>
-          <p class="t-tl__desc">Rameza Farm resmi berdiri dengan kandang pertama berkapasitas 500 ekor ayam petelur. Berawal dari tekad untuk menghadirkan telur segar berkualitas untuk masyarakat Bondowoso.</p>
-          <div class="t-tl__card-metric">
-            <span>🐔 500 ekor</span>
-            <span>📍 Bondowoso</span>
-          </div>
-        </div>
-        <div class="t-tl__dot"></div>
-        <div class="t-tl__spacer"></div>
-      </div>
-
-      <div class="t-tl__item t-tl__item--right reveal">
-        <div class="t-tl__spacer"></div>
-        <div class="t-tl__dot"></div>
-        <div class="t-tl__card">
-          <div class="t-tl__card-top">
-            <span class="t-tl__year-tag">2017</span>
-            <span class="t-tl__card-badge t-tl__card-badge--grow">📈 Ekspansi</span>
-          </div>
-          <h3 class="t-tl__title">Ekspansi Kandang Pertama</h3>
-          <p class="t-tl__desc">Kapasitas meningkat menjadi 2.000 ekor. Membangun jaringan distribusi langsung ke pasar tradisional dan warung-warung di wilayah Bondowoso dan sekitarnya.</p>
-          <div class="t-tl__card-metric">
-            <span>🐔 2.000 ekor</span>
-            <span>🏪 Pasar lokal</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="t-tl__item reveal">
-        <div class="t-tl__card">
-          <div class="t-tl__card-top">
-            <span class="t-tl__year-tag">2019</span>
-            <span class="t-tl__card-badge t-tl__card-badge--tech">⚙️ Modernisasi</span>
-          </div>
-          <h3 class="t-tl__title">Modernisasi Sistem Pakan</h3>
-          <p class="t-tl__desc">Mengadopsi sistem pakan otomatis dan rekam medis unggas digital. Produksi meningkat 40% dengan penurunan angka kematian unggas yang signifikan.</p>
-          <div class="t-tl__card-metric">
-            <span>📈 +40% produksi</span>
-            <span>💻 Sistem digital</span>
-          </div>
-        </div>
-        <div class="t-tl__dot"></div>
-        <div class="t-tl__spacer"></div>
-      </div>
-
-      <div class="t-tl__item t-tl__item--right reveal">
-        <div class="t-tl__spacer"></div>
-        <div class="t-tl__dot"></div>
-        <div class="t-tl__card">
-          <div class="t-tl__card-top">
-            <span class="t-tl__year-tag">2021</span>
-            <span class="t-tl__card-badge t-tl__card-badge--expand">🏬 Diversifikasi</span>
-          </div>
-          <h3 class="t-tl__title">Pusat Kebutuhan Ternak</h3>
-          <p class="t-tl__desc">Mulai menyediakan bibit unggas, pakan, dan obat-obatan ternak. Rameza Farm bertransformasi menjadi penyedia kebutuhan peternakan yang lebih lengkap.</p>
-          <div class="t-tl__card-metric">
-            <span>🌾 Pakan & bibit</span>
-            <span>💊 Obat ternak</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="t-tl__item reveal">
-        <div class="t-tl__card">
-          <div class="t-tl__card-top">
-            <span class="t-tl__year-tag">2025</span>
-            <span class="t-tl__card-badge t-tl__card-badge--milestone">🏆 1 Dekade</span>
-          </div>
-          <h3 class="t-tl__title">Satu Dekade Kepercayaan</h3>
-          <p class="t-tl__desc">Merayakan 10 tahun beroperasi dengan lebih dari 5.000 ekor ayam produktif dan jaringan pelanggan yang terus berkembang di seluruh Jawa Timur.</p>
-          <div class="t-tl__card-metric">
-            <span>🐔 5.000+ ekor</span>
-            <span>🗺️ Se-Jawa Timur</span>
-          </div>
-        </div>
-        <div class="t-tl__dot"></div>
-        <div class="t-tl__spacer"></div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <?php include '../includes/footer.php'; ?>
